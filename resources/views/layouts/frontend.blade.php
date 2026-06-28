@@ -193,6 +193,60 @@
         }
     </style>
 
+    <button type="button" class="btn btn-success rounded-circle shadow-lg d-flex align-items-center justify-content-center"
+        data-bs-toggle="modal" data-bs-target="#inquiryModal"
+        style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; z-index: 9999; transition: transform 0.2s;">
+    <span class="fs-3">📩</span>
+</button>
+
+<div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true" style="z-index: 10000;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title fw-bold" id="inquiryModalLabel">🌿 Kirim Pesan / Pertanyaan</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('inquiries.store') }}" method="POST">
+                @csrf
+                <div class="modal-body p-4">
+                    <p class="small text-muted mb-3">Punya pertanyaan seputar akomodasi atau paket wisata? Tinggalkan pesan Anda di bawah ini, tim kami akan segera merespons.</p>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Nama Lengkap</label>
+                        <input type="text" name="name" class="form-control form-control-sm" placeholder="Contoh: Budi Santoso" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Alamat E-mail</label>
+                        <input type="email" name="email" class="form-control form-control-sm" placeholder="Contoh: budi@gmail.com" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Nomor WhatsApp *(Opsional)</label>
+                        <input type="text" name="phone" class="form-control form-control-sm" placeholder="Contoh: 0812345678xx">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Isi Pesan / Pertanyaan</label>
+                        <textarea name="message" rows="4" class="form-control form-control-sm" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light p-3">
+                    <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success btn-sm fw-bold px-4">Kirim Pesan 🚀</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    button[data-bs-target="#inquiryModal"]:hover {
+        transform: scale(1.1);
+        background-color: #198754 !important;
+    }
+</style>
+
 </head>
 
 <body>

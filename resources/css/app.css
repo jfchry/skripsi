@@ -6,4 +6,39 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Mendaftarkan cubic-bezier kustom untuk pergerakan 3D Slider di Tailwind v4 */
+    --transition-timing-function-ease-out-3d: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   KUSTOM UTILITY & ANIMATION STATE (FOR INTERACTIVE CAROUSEL)
+   ───────────────────────────────────────────────────────────── */
+
+/* Kelas Pembantu Pergerakan Slider */
+.ease-out-3d {
+    transition-property: transform;
+    transition-timing-function: var(--transition-timing-function-ease-out-3d);
+    will-change: transform;
+}
+
+/* State 1: Ketika Item Slide Aktif dan Melebar (_list-expand) */
+._list-expand {
+    transform: scale(1);
+    opacity: 1;
+    z-index: 10;
+    transition: transform 0.7s var(--transition-timing-function-ease-out-3d), opacity 0.7s ease;
+}
+
+/* State 2: Ketika Item Slide Menyusut / Berada di Antrean Background (_list-shrink) */
+._list-shrink {
+    transform: scale(0.9) translate3d(0, 0, -100px);
+    opacity: 0.4;
+    z-index: 1;
+    transition: transform 0.7s var(--transition-timing-function-ease-out-3d), opacity 0.7s ease;
+}
+
+/* Transisi Halus untuk Perubahan Teks Judul & Deskripsi Kiri */
+#experience-title, #experience-description {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
