@@ -61,13 +61,13 @@
                     <a href="{{ route('admin.guides.edit', $guide->id) }}" class="btn btn-warning btn-sm fw-bold">
                         ✏️ Edit
                     </a>
-                    <form action="{{ route('admin.guides.destroy', $guide->id) }}" method="POST" onsubmit="return confirm('Hapus artikel panduan ini secara permanen?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm fw-bold">
-                            🗑️
-                        </button>
-                    </form>
+                    <form action="{{ route('admin.guides.destroy', $guide->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mengajukan penghapusan data ini ke Owner?');" class="d-inline">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger btn-sm">
+        🗑️ Hapus
+    </button>
+</form>
                 </div>
             </td>
         </tr>

@@ -10,7 +10,7 @@
 
 <div class="card shadow-sm border-0">
     <div class="card-body p-4">
-        <form action="{{ route('admin.itineraries.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.itineraries.store') }}" method="POST">
             @csrf
 
             <div class="row">
@@ -22,14 +22,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="excerpt" class="form-label fw-bold small">Ringkasan Singkat Paket</label>
-                        <textarea name="excerpt" id="excerpt" rows="2" class="form-control @error('excerpt') is-invalid @enderror" placeholder="Tulis deskripsi singkat penarik minat wisatawan...">{{ old('excerpt') }}</textarea>
-                        @error('excerpt') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label for="duration" class="form-label fw-bold small">Durasi Perjalanan</label>
+                        <input type="text" name="duration" id="duration" class="form-control @error('duration') is-invalid @enderror" placeholder="Contoh: 2 Hari 1 Malam" value="{{ old('duration') }}" required>
+                        @error('duration') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="content" class="form-label fw-bold small">Rincian Perjalanan (Rundown Per Hari)</label>
-                        <textarea name="content" id="content" rows="10" class="form-control @error('content') is-invalid @enderror" placeholder="Day 1: Penjemputan di Medan, Perjalanan ke Bukit Lawang, Check-in Villa Etalauser...&#10;Day 2: Trekking Taman Nasional, Bertemu Orangutan, River Tubing..." required>{{ old('content') }}</textarea>
+                        <textarea name="content" id="content" rows="10" class="form-control @error('content') is-invalid @enderror" placeholder="Day 1: Penjemputan di Medan...&#10;Day 2: Trekking Taman Nasional..." required>{{ old('content') }}</textarea>
                         @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
@@ -44,10 +44,10 @@
                     </div>
 
                     <div class="mb-3 shadow-sm p-3 rounded bg-light border">
-                        <label for="image_url" class="form-label fw-bold small">Foto Banner Paket Perjalanan</label>
-                        <input type="file" name="image_url" id="image_url" class="form-control @error('image_url') is-invalid @enderror">
-                        <div class="form-text small text-muted">Format gambar: JPG/PNG/WEBP (Maksimal 3MB).</div>
-                        @error('image_url') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label for="image_name" class="form-label fw-bold small">Nama File Foto Banner</label>
+                        <input type="text" name="image_name" id="image_name" class="form-control @error('image_name') is-invalid @enderror" placeholder="Contoh: banner_trekking.jpg" required>
+                        <div class="form-text small text-muted">Pastikan file sudah diletakkan di folder storage itineraries.</div>
+                        @error('image_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
             </div>

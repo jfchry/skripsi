@@ -15,30 +15,29 @@ class HomeController extends Controller
      * Memuat 2 jenis galeri yang terisolasi aman
      */
     public function index()
-{
-    // Jalur Galeri Atas: parent_type 'destination' dan parent_id BUKAN 999
-    $experience_galleries = Gallery::where('parent_type', 'destination')
-                                   ->where('parent_id', '!=', 999)
-                                   ->orderBy('created_at', 'desc')
-                                   ->get();
+    {
+        // Jalur Galeri Atas: parent_type 'destination' dan parent_id BUKAN 999
+        $experience_galleries = Gallery::where('parent_type', 'destination')
+                                       ->where('parent_id', '!=', 999)
+                                       ->orderBy('created_at', 'desc')
+                                       ->get();
 
-    // 🌟 JALUR GALERI BAWAH (Discover More): parent_type 'destination' tapi parent_id nya 999
-    // Dengan trik ini, data dijamin tidak akan tersenggol saat kamu menghapus 'villa_service'!
-    $discover_galleries = Gallery::where('parent_type', 'destination')
-                                 ->where('parent_id', 999)
-                                 ->orderBy('created_at', 'desc')
-                                 ->latest()
-                                 ->take(6)
-                                 ->get();
+        // 🌟 JALUR GALERI BAWAH (Discover More): parent_type 'destination' tapi parent_id nya 999
+        $discover_galleries = Gallery::where('parent_type', 'destination')
+                                     ->where('parent_id', 999)
+                                     ->orderBy('created_at', 'desc')
+                                     ->latest()
+                                     ->take(6)
+                                     ->get();
 
-    $guides = ContentPage::where('type', 'guide')
-                         ->where('status', 'published')
-                         ->orderBy('created_at', 'desc')
-                         ->take(3)
-                         ->get();
+        // 🌟 FIX: Menghapus status published agar data buatan admin langsung muncul di home
+        $guides = ContentPage::where('type', 'guide')
+                             ->orderBy('created_at', 'desc')
+                             ->take(3)
+                             ->get();
 
-    return view('frontend.home', compact('experience_galleries', 'discover_galleries', 'guides'));
-}
+        return view('frontend.home', compact('experience_galleries', 'discover_galleries', 'guides'));
+    }
 
     /**
      * 2. Halaman Daftar Destinasi Wisata
@@ -63,8 +62,8 @@ class HomeController extends Controller
      */
     public function guides()
     {
+        // 🌟 FIX: Menghapus status published untuk halaman list guides
         $guides = ContentPage::where('type', 'guide')
-                             ->where('status', 'published')
                              ->orderBy('created_at', 'desc')
                              ->get();
         return view('frontend.guides', compact('guides'));
@@ -75,8 +74,8 @@ class HomeController extends Controller
      */
     public function itineraries()
     {
+        // 🌟 FIX: Menghapus status published untuk halaman list itineraries
         $itineraries = ContentPage::where('type', 'itinerary')
-                                   ->where('status', 'published')
                                    ->orderBy('created_at', 'desc')
                                    ->get();
         return view('frontend.itineraries', compact('itineraries'));
@@ -87,8 +86,8 @@ class HomeController extends Controller
      */
     public function itineraryDetail($id)
     {
+        // 🌟 FIX: Menghapus status published agar detail itinerary tidak 404 Not Found
         $itinerary = ContentPage::where('type', 'itinerary')
-                                 ->where('status', 'published')
                                  ->findOrFail($id);
         return view('frontend.itinerary-detail', compact('itinerary'));
     }

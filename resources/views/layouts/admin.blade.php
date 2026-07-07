@@ -32,47 +32,62 @@
                     Admin CMS
                 </h5>
                 <ul class="nav flex-column">
-    <li class="nav-item">
-        <a class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-            📊 Dashboard
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ Request::is('admin/destinations*') ? 'active' : '' }}" href="{{ route('admin.destinations.index') }}">
-            🌳 Destinasi Wisata
-        </a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link {{ Request::is('admin/villa-rooms*') ? 'active' : '' }}" href="{{ route('admin.rooms.index') }}">
-        <i class="fas fa-fw fa-bed"></i> <span>🛏️ Kelola Tipe Kamar</span>
-    </a>
-</li>
-    <li class="nav-item">
-    <a class="nav-link {{ Request::is('admin/villa-galleries*') ? 'active' : '' }}" href="{{ route('admin.villa.index') }}">
-        🏡 Kelola Galeri Villa
-    </a>
-</li>
-    <li class="nav-item">
-    <a class="nav-link {{ Request::is('admin/galleries*') ? 'active' : '' }}" href="{{ route('admin.galleries.index') }}">
-        📸 Kelola Galeri
-    </a>
-<!-- Mengganti menu Halaman Konten lama menjadi terpisah -->
-<li class="nav-item">
-    <a class="nav-link {{ Request::is('admin/guides*') ? 'active' : '' }}" href="{{ route('admin.guides.index') }}">
-        🗺️ Kelola Travel Guides
-    </a>
-</li>
+                    {{-- 1. Dashboard --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                            📊 Dashboard
+                        </a>
+                    </li>
 
-<li class="nav-item">
-    <a class="nav-link {{ Request::is('admin/itineraries*') ? 'active' : '' }}" href="{{ route('admin.itineraries.index') }}">
-        📅 Kelola Itineraries
-    </a>
-</li>
+                    {{-- 2. Travel Guides --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/guides*') ? 'active' : '' }}" href="{{ route('admin.guides.index') }}">
+                            🗺️ Kelola Travel Guides
+                        </a>
+                    </li>
 
-    <a class="nav-link" href="{{ route('admin.inquiries.index') }}">
-    <span>📥 Pesan Masuk</span>
-</a>
-</ul>
+                    {{-- 3. Destinations (Destinasi Wisata) --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/destinations*') ? 'active' : '' }}" href="{{ route('admin.destinations.index') }}">
+                            🌳 Destinasi Wisata
+                        </a>
+                    </li>
+
+                    {{-- 4. Itineraries --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/itineraries*') ? 'active' : '' }}" href="{{ route('admin.itineraries.index') }}">
+                            📅 Kelola Itineraries
+                        </a>
+                    </li>
+
+                    {{-- 5. Villa Room (Tipe Kamar) --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/villa-rooms*') ? 'active' : '' }}" href="{{ route('admin.rooms.index') }}">
+                            🛏️ Kelola Tipe Kamar
+                        </a>
+                    </li>
+
+                    {{-- 6. Villa Gallery --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/villa-galleries*') ? 'active' : '' }}" href="{{ route('admin.villa.index') }}">
+                            🏡 Kelola Galeri Villa
+                        </a>
+                    </li>
+
+                    {{-- 7. Gallery (Galeri Umum) --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/galleries*') ? 'active' : '' }}" href="{{ route('admin.galleries.index') }}">
+                            📸 Kelola Galeri
+                        </a>
+                    </li>
+
+                    {{-- 8. Pesan Masuk --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/inquiries*') ? 'active' : '' }}" href="{{ route('admin.inquiries.index') }}">
+                            📥 Pesan Masuk
+                        </a>
+                    </li>
+                </ul>
 
                 <hr class="text-secondary">
 
@@ -86,17 +101,17 @@
         </nav>
 
         <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4 bg-light" style="min-height: 100vh;">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2 fw-bold">Panel Kendali</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <span class="badge bg-secondary p-2">Halo, Admin Etalauser</span>
-        </div>
-    </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2 fw-bold">Panel Kendali</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <span class="badge bg-secondary p-2">Halo, Admin Etalauser</span>
+                </div>
+            </div>
 
-    <div class="py-2">
-        @yield('content_admin')
-    </div>
-</main>
+            <div class="py-2">
+                @yield('content_admin')
+            </div>
+        </main>
     </div>
 </div>
 

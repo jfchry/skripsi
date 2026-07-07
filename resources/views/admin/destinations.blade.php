@@ -9,43 +9,7 @@
 </div>
 
 {{-- 🌟 POSISI BARU: FITUR NOTIFIKASI PENOLAKAN DARI OWNER --}}
-@php
-    // Ambil data pengajuan modul Destination milik admin ini yang berstatus ditolak ('rejected')
-    $rejectedRequests = \App\Models\ApprovalRequest::where('model_type', \App\Models\Destination::class)
-                        ->where('user_id', Auth::id())
-                        ->where('status', 'rejected')
-                        ->orderBy('updated_at', 'desc')
-                        ->get();
-@endphp
 
-@if(!$rejectedRequests->isEmpty())
-    <div class="alert alert-danger shadow-sm border-start border-4 border-danger mb-4" role="alert">
-        <h5 class="alert-heading fw-bold"><i class="fas fa-exclamation-triangle me-2"></i> Perhatian: Pengajuan Anda Ditolak Owner!</h5>
-        <p class="small text-dark">Berikut adalah daftar pengajuan data yang dikembalikan oleh Owner untuk segera Anda perbaiki:</p>
-        <hr class="my-2">
-        <ul class="mb-0 py-1 text-dark">
-            @foreach($rejectedRequests as $rej)
-                <li class="mb-3 d-flex justify-content-between align-items-start border-bottom pb-2">
-                    <div>
-                        Data Konten: <strong>"{{ $rej->payload['name'] ?? 'Data Tanpa Nama' }}"</strong>
-                        <span class="badge bg-secondary ms-1">{{ strtoupper($rej->action_type) }}</span><br>
-                        ❌ <span class="text-danger fw-bold">Alasan Ditolak:</span>
-                        <span class="bg-white px-2 py-1 border rounded text-dark d-inline-block mt-1">
-                            <em>"{{ $rej->notes_from_owner }}"</em>
-                        </span>
-                    </div>
-
-                    <form action="{{ route('admin.approval.dismiss', $rej->id) }}" method="POST" class="ms-2">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm fw-bold py-1" style="font-size: 11px;">
-                            ✕ Tandai Dibaca
-                        </button>
-                    </form>
-                </li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 {{-- 🌟 END FITUR NOTIFIKASI --}}
 
 <div class="card shadow-sm border-0">

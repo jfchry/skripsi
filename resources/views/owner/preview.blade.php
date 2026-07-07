@@ -13,6 +13,20 @@
         <div class="alert alert-danger shadow-sm">{{ session('error') }}</div>
     @endif
 
+    {{-- 🌟 BLOK DETEKSI DATA DINAMIS UNIVERSAL --}}
+    @php
+        // 1. Deteksi Judul/Nama Konten (Destinations memakai 'name', ContentPage memakai 'title')
+        $displayTitle = $proposedData['name'] ?? $proposedData['title'] ?? $proposedData['judul'] ?? 'Tidak ada data';
+
+        // 2. Deteksi Isi/Deskripsi Konten (Mendukung 'location_description', 'body', 'content', 'description', atau 'excerpt')
+        $displayDescription = $proposedData['location_description'] ??
+                             $proposedData['body'] ??
+                             $proposedData['content'] ??
+                             $proposedData['description'] ??
+                             $proposedData['excerpt'] ??
+                             'Tidak ada data';
+    @endphp
+
     <div class="row">
         {{-- Sisi Kiri: Form Preview Data Baru Hasil Input Admin --}}
         <div class="col-md-7">
@@ -21,19 +35,19 @@
                     <h6 class="m-0 fw-bold"><i class="fas fa-box me-2"></i> Data Baru yang Diajukan Admin</h6>
                 </div>
                 <div class="card-body p-4">
-                    {{-- Preview Nama Destinasi --}}
+                    {{-- Preview Nama / Judul Konten secara Dinamis --}}
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold text-uppercase">Nama / Judul Konten:</label>
-                        <input type="text" class="form-control bg-light py-2" value="{{ $proposedData['name'] ?? 'Tidak ada data' }}" readonly>
+                        <input type="text" class="form-control bg-light py-2" value="{{ $displayTitle }}" readonly>
                     </div>
 
-                    {{-- Preview Deskripsi Konten --}}
+                    {{-- Preview Deskripsi Konten secara Dinamis --}}
                     <div class="mb-3">
-                        <label class="form-label text-muted small fw-bold text-uppercase">Isi Deskripsi Lokasi Wisata:</label>
-                        <textarea class="form-control bg-light" rows="6" readonly>{{ $proposedData['location_description'] ?? $proposedData['description'] ?? 'Tidak ada data' }}</textarea>
+                        <label class="form-label text-muted small fw-bold text-uppercase">Isi Deskripsi / Konten Lengkap:</label>
+                        <textarea class="form-control bg-light" rows="8" readonly>{{ $displayDescription }}</textarea>
                     </div>
 
-                    {{-- 🌟 FIX TOTAL PREVIEW GAMBAR UNIVERSAL --}}
+                    {{-- FIX TOTAL PREVIEW GAMBAR UNIVERSAL --}}
                     @php
                         // Deteksi otomatis segala variasi nama key foto dari inputan lama/baru
                         $rawPath = $proposedData['image'] ?? $proposedData['image_url'] ?? $proposedData['image_path'] ?? null;

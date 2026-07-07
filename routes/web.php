@@ -13,7 +13,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\GalleryController;
-use App\Http\Controllers\Admin\ContentPageController;
+use App\Http\Controllers\Admin\GuideController;
+use App\Http\Controllers\Admin\ItineraryController;
 use App\Http\Controllers\Admin\VillaGalleryController;
 use App\Http\Controllers\Admin\VillaRoomController;
 use App\Http\Controllers\Admin\AdminInquiryController;
@@ -74,30 +75,32 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     // Dashboard Utama Admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // 🌟 FIX JALUR DISMISS: Disesuaikan agar otomatis menghasilkan nama 'admin.approval.dismiss'
+    Route::post('/approval/{id}/dismiss', [DashboardController::class, 'dismissNotification'])->name('approval.dismiss');
+
     // Modul CRUD Otomatis (Menggunakan Resource)
     Route::resource('destinations', DestinationController::class);
-    Route::post('/approval/{id}/dismiss', [DestinationController::class, 'dismissNotification'])->name('approval.dismiss');
     Route::resource('galleries', GalleryController::class)->except(['show', 'edit', 'update']);
     Route::resource('villa-galleries', VillaGalleryController::class)->names('villa')->except(['show', 'edit', 'update']);
     Route::resource('villa-rooms', VillaRoomController::class)->names('rooms')->except(['show']);
 
-    // Modul Custom (Guides & Itineraries menggunakan satu controller yang sama)
+    // 🌟 SEKARANG JALUR ROUTE MENJADI SANGAT BERSIH & MODULAR
     Route::prefix('guides')->name('guides.')->group(function () {
-        Route::get('/', [ContentPageController::class, 'indexGuides'])->name('index');
-        Route::get('/create', [ContentPageController::class, 'createGuide'])->name('create');
-        Route::post('/store', [ContentPageController::class, 'storeGuide'])->name('store');
-        Route::get('/{id}/edit', [ContentPageController::class, 'editGuide'])->name('edit');
-        Route::put('/{id}', [ContentPageController::class, 'updateGuide'])->name('update');
-        Route::delete('/{id}', [ContentPageController::class, 'destroyGuide'])->name('destroy');
+        Route::get('/', [GuideController::class, 'index'])->name('index');
+        Route::get('/create', [GuideController::class, 'create'])->name('create');
+        Route::post('/store', [GuideController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [GuideController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [GuideController::class, 'update'])->name('update');
+        Route::delete('/{id}', [GuideController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('itineraries')->name('itineraries.')->group(function () {
-        Route::get('/', [ContentPageController::class, 'indexItineraries'])->name('index');
-        Route::get('/create', [ContentPageController::class, 'createItinerary'])->name('create');
-        Route::post('/store', [ContentPageController::class, 'storeItinerary'])->name('store');
-        Route::get('/{id}/edit', [ContentPageController::class, 'editItinerary'])->name('edit');
-        Route::put('/{id}', [ContentPageController::class, 'updateItinerary'])->name('update');
-        Route::delete('/{id}', [ContentPageController::class, 'destroyItinerary'])->name('destroy');
+        Route::get('/', [ItineraryController::class, 'index'])->name('index');
+        Route::get('/create', [ItineraryController::class, 'create'])->name('create');
+        Route::post('/store', [ItineraryController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [ItineraryController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [ItineraryController::class, 'update'])->name('update');
+        Route::delete('/{id}', [ItineraryController::class, 'destroy'])->name('destroy');
     });
 
     // Modul Manajemen Inquiry

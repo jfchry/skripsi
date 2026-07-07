@@ -9,9 +9,14 @@ class ContentPage extends Model
 {
     use HasFactory;
 
-    protected $table = 'content_pages'; // Menegaskan nama tabel di DB
+    protected $table = 'content_pages'; // Memastikan nama tabelnya pas
 
+    // 🌟 Pastikan semua kolom yang dipakai Guides & Itineraries masuk ke sini!
     protected $fillable = [
-        'author_id', 'slug', 'title','type', 'body', 'image_url', 'status'
-    ];
+    'title',
+    'slug', 
+    'body',
+    'image_url',
+    'type',
+];
 }

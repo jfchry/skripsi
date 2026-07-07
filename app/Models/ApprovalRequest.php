@@ -16,7 +16,8 @@ class ApprovalRequest extends Model
         'payload',
         'user_id',
         'status',
-        'notes_from_owner'
+        'notes_from_owner',
+        'is_seen'
     ];
 
     // 🌟 TRICK SAKTI: Mengotomatiskan konversi JSON ke Array PHP secara real-time

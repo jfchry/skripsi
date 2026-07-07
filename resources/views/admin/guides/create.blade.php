@@ -45,7 +45,7 @@
 
                     <div class="mb-3 shadow-sm p-3 rounded bg-light border">
                         <label for="image_url" class="form-label fw-bold small">Foto Sampul Artikel</label>
-                        <input type="file" name="image_url" id="image_url" class="form-control @error('image_url') is-invalid @enderror">
+                        <input type="text" name="image_name" class="form-control" placeholder="Contoh: guide1.jpg" required>
                         <div class="form-text small text-muted">Format: JPG/PNG. Maksimal 3MB.</div>
                         @error('image_url') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>

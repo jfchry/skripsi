@@ -38,11 +38,10 @@
             </div>
 
             {{-- Input Unggah Foto Destinasi --}}
-            <div class="mb-4">
-                <label for="image_url" class="form-label fw-bold small">Unggah Foto Destinasi (Opsional)</label>
-                <input type="file" name="image_url" id="image_url"
-                       class="form-control @error('image_url') is-invalid @enderror">
-                <div class="form-text small text-muted">Format yang didukung: JPG, JPEG, PNG. Maksimal ukuran file 10MB.</div>
+            <div class="form-group">
+    <label for="image_name">Nama File Foto (Pastikan sudah ditaruh di folder public/storage/destinations)</label>
+    <input type="text" name="image_name" class="form-control" placeholder="Contoh: wisata1.jpg" required>
+</div>
                 @error('image_url')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

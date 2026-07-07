@@ -10,7 +10,7 @@
 
 <div class="card shadow-sm border-0">
     <div class="card-body p-4">
-        <form action="{{ route('admin.itineraries.update', $itinerary->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.itineraries.update', $itinerary->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -20,12 +20,6 @@
                         <label for="title" class="form-label fw-bold small">Nama / Judul Itinerary</label>
                         <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $itinerary->title) }}" required>
                         @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="excerpt" class="form-label fw-bold small">Ringkasan Singkat Paket</label>
-                        <textarea name="excerpt" id="excerpt" rows="2" class="form-control @error('excerpt') is-invalid @enderror" required>{{ old('excerpt', $itinerary->excerpt) }}</textarea>
-                        @error('excerpt') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="mb-3">
@@ -51,9 +45,8 @@
                                  class="img-thumbnail w-100 shadow-sm" style="height: 150px; object-fit: cover;" alt="Current Cover">
                         </div>
 
-                        <label for="image_url" class="form-label fw-bold small">Ganti Foto Banner Baru *(Kosongkan jika tetap)</label>
-                        <input type="file" name="image_url" id="image_url" class="form-control @error('image_url') is-invalid @enderror">
-                        @error('image_url') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label for="image_name" class="form-label fw-bold small">Ganti Foto Banner Baru *(Kosongkan jika tetap)</label>
+                        <input type="text" name="image_name" id="image_name" class="form-control" placeholder="Contoh: banner_baru.jpg">
                     </div>
                 </div>
             </div>

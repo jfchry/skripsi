@@ -22,9 +22,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th width="5%" class="text-center">No</th>
-                        <th width="15%">Foto Lokasi</th>
+                        <th width="15%">Foto Banner</th>
                         <th width="25%">Judul Itinerary</th>
-                        <th width="35%">Ringkasan Rencana</th>
+                        <th width="15%">Durasi</th> {{-- 🌟 Diubah agar info waktu paket langsung kelihatan --}}
+                        <th width="20%">Ringkasan Rencana</th>
                         <th width="10%" class="text-center">Status</th>
                         <th width="10%" class="text-center">Aksi</th>
                     </tr>
@@ -40,8 +41,11 @@
                                      alt="Sampul">
                             </td>
                             <td class="fw-bold text-dark">{{ $item->title }}</td>
+                            {{-- 🌟 Menampilkan durasi paket dari kolom DB --}}
+                            <td class="text-success fw-bold small">{{ $item->duration ?? '-' }}</td>
                             <td class="text-muted small">
-                                {{ $item->excerpt ?? Str::limit(strip_tags($item->body), 90) }}
+                                {{-- 🌟 FIX: Langsung potong teks dari kolom body karena excerpt tidak ada di database --}}
+                                {{ Str::limit(strip_tags($item->body), 75) }}
                             </td>
                             <td class="text-center">
                                 @if($item->status === 'published')
@@ -50,7 +54,7 @@
                                     </span>
                                 @else
                                     <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1.5 rounded-pill small">
-                                        ⚪ Draft
+                                        白 Draft
                                     </span>
                                 @endif
                             </td>
@@ -71,7 +75,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
+                            <td colspan="7" class="text-center py-5 text-muted">
                                 <h5>Belum ada data Rencana Perjalanan (Itinerary).</h5>
                                 <p class="small mb-0">Klik "Tambah Itinerary Baru" untuk menyusun paket perjalanan seru.</p>
                             </td>

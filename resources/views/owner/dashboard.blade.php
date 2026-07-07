@@ -1,5 +1,5 @@
 @extends('layouts.owner') {{-- Sesuaikan dengan nama layout admin asli di proyekmu --}}
-
+@include('partials.notifications')
 @section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Dashboard Owner</h1>

@@ -23,14 +23,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="excerpt" class="form-label fw-bold small">Ringkasan Pendek *(Excerpt)</label>
-                        <textarea name="excerpt" id="excerpt" rows="2" class="form-control @error('excerpt') is-invalid @enderror" required>{{ old('excerpt', $guide->excerpt) }}</textarea>
-                        @error('excerpt') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-
-                    <div class="mb-3">
                         <label for="content" class="form-label fw-bold small">Isi Lengkap Panduan Wisata</label>
-                        <textarea name="content" id="content" rows="10" class="form-control @error('content') is-invalid @enderror" required>{{ old('content', $guide->content) }}</textarea>
+                        {{-- 🌟 FIX: Mengubah $guide->content menjadi $guide->body sesuai kolom DB --}}
+                        <textarea name="content" id="content" rows="10" class="form-control @error('content') is-invalid @enderror" required>{{ old('content', $guide->body) }}</textarea>
                         @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
@@ -51,9 +46,10 @@
                                  class="img-thumbnail w-100 shadow-sm" style="height: 150px; object-fit: cover;" alt="Current Cover">
                         </div>
 
-                        <label for="image_url" class="form-label fw-bold small">Ganti Foto Baru *(Kosongkan jika tetap)</label>
-                        <input type="file" name="image_url" id="image_url" class="form-control @error('image_url') is-invalid @enderror">
-                        @error('image_url') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label for="image_name" class="form-label fw-bold small">Ganti Foto Baru *(Kosongkan jika tetap)</label>
+                        {{-- 🌟 FIX: Menghapus atribut 'required' agar foto lama tidak dipaksa ganti --}}
+                        <input type="text" name="image_name" id="image_name" class="form-control" placeholder="Contoh: guide1.jpg">
+                        @error('image_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
             </div>
