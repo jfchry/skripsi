@@ -8,7 +8,7 @@
 
 <div class="card shadow-sm border-0" style="max-width: 700px;">
     <div class="card-body p-4">
-        <form action="{{ route('admin.rooms.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.rooms.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label class="form-label fw-bold small">Nama Kamar</label>
@@ -23,10 +23,11 @@
                 <textarea name="description" rows="6" class="form-control" placeholder="Tulis kapasitas tamu dan fasilitas kamar di sini (Gunakan enter untuk baris baru)..." required></textarea>
             </div>
             <div class="mb-4">
-                <label class="form-label fw-bold small">Foto Utama Kamar</label>
-                <input type="file" name="image_url" class="form-control" required>
+                <label class="form-label fw-bold small">Nama File Foto Utama Kamar</label>
+                <input type="text" name="image_name" class="form-control" placeholder="Contoh: room_deluxe.jpg" required>
+                <div class="form-text small text-muted">Pastikan file gambar diletakkan di dalam folder storage/rooms/.</div>
             </div>
-            <button type="submit" class="btn btn-success fw-bold px-4">Simpan Kamar</button>
+            <button type="submit" class="btn btn-success fw-bold px-4">Ajukan Kamar Baru</button>
         </form>
     </div>
 </div>

@@ -52,7 +52,8 @@
                             </td>
 
                             <td class="text-muted small">
-                                {!! nl2br(e($item->description)) !!}
+                                {{-- 🌟 REKOMENDASI: Membatasi teks agar baris tabel tidak terlalu melar ke bawah --}}
+                                {!! nl2br(e(Str::limit($item->description, 100))) !!}
                             </td>
 
                             <td class="text-center">

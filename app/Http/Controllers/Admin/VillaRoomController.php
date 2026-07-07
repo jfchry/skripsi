@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\VillaService;
+use App\Models\ApprovalRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class VillaRoomController extends Controller
 {
@@ -27,7 +28,7 @@ class VillaRoomController extends Controller
     }
 
     /**
-     * 3. Memproses Penyimpanan Kamar Baru
+     * 3. Memproses Penyimpanan Kamar Baru via Approval Owner
      */
     public function store(Request $request)
     {
@@ -35,26 +36,33 @@ class VillaRoomController extends Controller
             'service_name' => 'required|string|max:255',
             'price'        => 'required|numeric',
             'description'  => 'required|string',
-            'image_url'    => 'required|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'image_name'   => 'required|string', // Diselaraskan menggunakan string nama file
         ]);
 
-        $path = null;
-        if ($request->hasFile('image_url')) {
-            $path = $request->file('image_url')->store('rooms', 'public');
-        }
+        $path = 'rooms/' . $request->image_name;
 
-        VillaService::create([
+        $payload = [
             'service_name' => $request->service_name,
             'price'        => $request->price,
             'description'  => $request->description,
-            'icon_url'     => $path, // Menyimpan file path foto ke kolom icon_url
+            'icon_url'     => $path,
+        ];
+
+        ApprovalRequest::create([
+            'model_type'  => VillaService::class,
+            'model_id'    => null,
+            'action_type' => 'create',
+            'payload'     => $payload,
+            'user_id'     => Auth::id(),
+            'status'      => 'pending'
         ]);
 
-        return redirect()->route('admin.rooms.index')->with('success', 'Tipe kamar baru berhasil didaftarkan!');
+        return redirect()->route('admin.rooms.index')
+            ->with('success', '🚀 Pengajuan kamar baru berhasil dikirim ke Owner!');
     }
 
     /**
-     * 4. Form Edit Data & Spesifikasi Kamar 🌟
+     * 4. Form Edit Data & Spesifikasi Kamar
      */
     public function edit($id)
     {
@@ -63,7 +71,7 @@ class VillaRoomController extends Controller
     }
 
     /**
-     * 5. Memproses Pembaruan Data Kamar 🌟
+     * 5. Memproses Pembaruan Data Kamar via Approval Owner
      */
     public function update(Request $request, $id)
     {
@@ -73,40 +81,58 @@ class VillaRoomController extends Controller
             'service_name' => 'required|string|max:255',
             'price'        => 'required|numeric',
             'description'  => 'required|string',
-            'image_url'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072', // Nullable karena foto bersifat opsional saat edit
+            'image_name'   => 'nullable|string',
         ]);
 
-        if ($request->hasFile('image_url')) {
-            // Hapus berkas fisik foto lama dari storage jika admin mengunggah foto baru
-            if ($room->icon_url && Storage::disk('public')->exists($room->icon_url)) {
-                Storage::disk('public')->delete($room->icon_url);
-            }
-            // Simpan berkas foto yang baru
-            $room->icon_url = $request->file('image_url')->store('rooms', 'public');
+        $path = $room->icon_url;
+        if ($request->filled('image_name')) {
+            $path = 'rooms/' . $request->image_name;
         }
 
-        // Perbarui record data tekstual di database
-        $room->update([
+        $payload = [
             'service_name' => $request->service_name,
             'price'        => $request->price,
             'description'  => $request->description,
+            'icon_url'     => $path,
+        ];
+
+        ApprovalRequest::create([
+            'model_type'  => VillaService::class,
+            'model_id'    => $id,
+            'action_type' => 'update',
+            'payload'     => $payload,
+            'user_id'     => Auth::id(),
+            'status'      => 'pending'
         ]);
 
-        return redirect()->route('admin.rooms.index')->with('success', 'Data spesifikasi kamar berhasil diperbarui!');
+        return redirect()->route('admin.rooms.index')
+            ->with('success', '🔄 Permohonan modifikasi spesifikasi kamar berhasil dikirim ke Owner!');
     }
 
     /**
-     * 6. Menghapus Data Kamar Beserta Berkas Gambar
+     * 6. Menghapus Data Kamar Beserta Berkas Gambar via Approval Owner
      */
     public function destroy($id)
     {
         $room = VillaService::findOrFail($id);
 
-        if ($room->icon_url && Storage::disk('public')->exists($room->icon_url)) {
-            Storage::disk('public')->delete($room->icon_url);
-        }
+        $payload = [
+            'service_name' => $room->service_name,
+            'price'        => $room->price,
+            'description'  => $room->description,
+            'icon_url'     => $room->icon_url,
+        ];
 
-        $room->delete();
-        return redirect()->route('admin.rooms.index')->with('success', 'Data kamar berhasil dihapus.');
+        ApprovalRequest::create([
+            'model_type'  => VillaService::class,
+            'model_id'    => $id,
+            'action_type' => 'delete',
+            'payload'     => $payload,
+            'user_id'     => Auth::id(),
+            'status'      => 'pending'
+        ]);
+
+        return redirect()->route('admin.rooms.index')
+            ->with('success', '🚀 Pengajuan penghapusan data kamar berhasil dikirim ke Owner!');
     }
 }

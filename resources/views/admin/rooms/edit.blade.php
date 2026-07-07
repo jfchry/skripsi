@@ -8,7 +8,7 @@
 
 <div class="card shadow-sm border-0" style="max-width: 700px;">
     <div class="card-body p-4">
-        <form action="{{ route('admin.rooms.update', $room->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.rooms.update', $room->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -33,8 +33,8 @@
             </div>
 
             <div class="mb-4">
-                <label class="form-label fw-bold small">Ganti Foto Kamar Baru *(Kosongkan jika tetap)</label>
-                <input type="file" name="image_url" class="form-control">
+                <label class="form-label fw-bold small">Ganti Nama File Foto Kamar Baru *(Kosongkan jika tetap)</label>
+                <input type="text" name="image_name" class="form-control" placeholder="Contoh: room_deluxe_new.jpg">
             </div>
 
             <div class="d-flex gap-2">
