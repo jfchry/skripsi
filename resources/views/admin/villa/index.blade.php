@@ -28,33 +28,39 @@
                     </tr>
                 </thead>
                 <tbody>
-    @forelse ($galleries as $index => $item)
-        <tr>
-            <td class="text-center fw-bold">{{ $index + 1 }}</td>
-            <td>
-                @if($item->file_path)
-                    <img src="{{ asset('storage/' . $item->file_path) }}"
-                         class="img-thumbnail"
-                         style="width: 120px; height: 80px; object-fit: cover;"
-                         alt="Fasilitas">
-                @else
-                    <span class="badge bg-secondary">Tidak ada foto</span>
-                @endif
-            </td>
-            <td class="fw-bold text-dark">{{ $item->caption ?? 'Tanpa Keterangan' }}</td>
-            <td class="text-center">
-    <form action="{{ route('admin.villa.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Hapus foto fasilitas ini secara permanen?')">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger btn-sm fw-bold px-3">
-            🗑️ Hapus Foto
-        </button>
-    </form>
-</td>
-        </tr>
-    @empty
-        @endforelse
-</tbody>
+                    @forelse ($galleries as $index => $item)
+                        <tr>
+                            <td class="text-center fw-bold">{{ $index + 1 }}</td>
+                            <td>
+                                @if($item->file_path)
+                                    <img src="{{ asset('storage/' . $item->file_path) }}"
+                                         class="img-thumbnail"
+                                         style="width: 120px; height: 80px; object-fit: cover;"
+                                         alt="Fasilitas">
+                                @else
+                                    <span class="badge bg-secondary">Tidak ada foto</span>
+                                @endif
+                            </td>
+                            <td class="fw-bold text-dark">{{ $item->caption ?? 'Tanpa Keterangan' }}</td>
+                            <td class="text-center">
+                                <form action="{{ route('admin.villa.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Ajukan penghapusan foto fasilitas ini ke Owner?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm fw-bold px-3">
+                                        🗑️ Hapus Foto
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <h5>Belum ada koleksi foto fasilitas villa.</h5>
+                                <p class="small mb-0">Klik "Unggah Foto Fasilitas" untuk mengirim aset dokumentasi baru.</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
             </table>
         </div>
     </div>

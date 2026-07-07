@@ -10,7 +10,7 @@
 
 <div class="card shadow-sm border-0" style="max-width: 600px;">
     <div class="card-body p-4">
-        <form action="{{ route('admin.villa.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.villa.store') }}" method="POST">
             @csrf
 
             <!-- Nama Fasilitas -->
@@ -20,16 +20,16 @@
                 @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Upload File -->
+            <!-- Input Teks Nama File Gambar -->
             <div class="mb-4">
-                <label for="image_url" class="form-label fw-bold small">Pilih Berkas Gambar</label>
-                <input type="file" name="image_url" id="image_url" class="form-control @error('image_url') is-invalid @enderror" required>
-                <div class="form-text small text-muted">Format resmi: JPG, JPEG, PNG, atau WEBP (Maksimal 3MB).</div>
-                @error('image_url') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                <label for="image_name" class="form-label fw-bold small">Nama File Gambar</label>
+                <input type="text" name="image_name" id="image_name" class="form-control @error('image_name') is-invalid @enderror" placeholder="Contoh: villa_pool.jpg" required>
+                <div class="form-text small text-muted">Pastikan file gambar sudah diletakkan di dalam folder storage/villa_services/.</div>
+                @error('image_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
             <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-success fw-bold px-4">🚀 Mulai Unggah</button>
+                <button type="submit" class="btn btn-success fw-bold px-4">🚀 Ajukan ke Owner</button>
                 <a href="{{ route('admin.villa.index') }}" class="btn btn-secondary px-3">Batal</a>
             </div>
         </form>

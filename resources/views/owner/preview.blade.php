@@ -15,8 +15,8 @@
 
     {{-- 🌟 BLOK DETEKSI DATA DINAMIS UNIVERSAL --}}
     @php
-        // 1. Deteksi Judul/Nama Konten (Mendukung Destinations 'name', ContentPage 'title', dan VillaService 'service_name')
-        $displayTitle = $proposedData['service_name'] ?? $proposedData['name'] ?? $proposedData['title'] ?? $proposedData['judul'] ?? 'Tidak ada data';
+        // 1. Deteksi Judul/Nama Konten (Mendukung Galleries 'caption', VillaService 'service_name', Destinations 'name', dan ContentPage 'title')
+        $displayTitle = $proposedData['caption'] ?? $proposedData['service_name'] ?? $proposedData['name'] ?? $proposedData['title'] ?? $proposedData['judul'] ?? 'Tidak ada data';
 
         // 2. Deteksi Isi/Deskripsi Konten (Mendukung 'location_description', 'body', 'content', 'description', atau 'excerpt')
         $displayDescription = $proposedData['location_description'] ??
@@ -49,8 +49,8 @@
 
                     {{-- FIX TOTAL PREVIEW GAMBAR UNIVERSAL --}}
                     @php
-                        // 🌟 FIX: Menambahkan icon_url khusus untuk menangkap foto dari model VillaService
-                        $rawPath = $proposedData['icon_url'] ?? $proposedData['image'] ?? $proposedData['image_url'] ?? $proposedData['image_path'] ?? null;
+                        // 🌟 FIX: Menambahkan file_path untuk menangkap foto dari tabel galleries utama & villa
+                        $rawPath = $proposedData['file_path'] ?? $proposedData['icon_url'] ?? $proposedData['image'] ?? $proposedData['image_url'] ?? $proposedData['image_path'] ?? null;
 
                         // Bersihkan string 'public/' jika terbawa oleh data seadanya
                         $cleanPath = $rawPath ? \Illuminate\Support\Str::replace('public/', '', $rawPath) : null;

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
+use App\Models\ApprovalRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class VillaGalleryController extends Controller
 {
@@ -30,27 +31,35 @@ class VillaGalleryController extends Controller
     }
 
     /**
-     * 3. Memproses Penyimpanan Foto Baru
+     * 3. Memproses Penyimpanan Foto Baru via Approval Owner
      */
     public function store(Request $request)
     {
         $request->validate([
-            'title'     => 'required|string|max:255', // Validasi input form tetap 'title'
-            'image_url' => 'required|image|mimes:jpeg,png,jpg,webp|max:3072', // Validasi input file tetap 'image_url'
+            'title'      => 'required|string|max:255',
+            'image_name' => 'required|string', // Disinkronkan menggunakan nama file string
         ]);
 
-        if ($request->hasFile('image_url')) {
-            $path = $request->file('image_url')->store('villa_services', 'public');
+        $path = 'villa_services/' . $request->image_name;
 
-            Gallery::create([
-                'parent_id'   => 0,
-                'parent_type' => 'villa_service',
-                'caption'     => $request->title,     // 🌟 DIALIKHAN: Input 'title' disimpan ke kolom 'caption'
-                'file_path'   => $path,               // 🌟 DIALIKHAN: Path disimpan ke kolom 'file_path'
-            ]);
-        }
+        $payload = [
+            'parent_id'   => 0,
+            'parent_type' => 'villa_service',
+            'caption'     => $request->title,
+            'file_path'   => $path,
+        ];
 
-        return redirect()->route('admin.villa.index')->with('success', 'Foto fasilitas villa baru berhasil diunggah!');
+        ApprovalRequest::create([
+            'model_type'  => Gallery::class,
+            'model_id'    => null,
+            'action_type' => 'create',
+            'payload'     => $payload,
+            'user_id'     => Auth::id(),
+            'status'      => 'pending'
+        ]);
+
+        return redirect()->route('admin.villa.index')
+            ->with('success', '🚀 Pengajuan foto galeri villa baru berhasil dikirim ke Owner!');
     }
 
     /**
@@ -63,45 +72,66 @@ class VillaGalleryController extends Controller
     }
 
     /**
-     * 5. Memproses Pembaruan Data & File Foto
+     * 5. Memproses Pembaruan Data via Approval Owner
      */
     public function update(Request $request, $id)
     {
         $gallery = Gallery::where('parent_type', 'villa_service')->findOrFail($id);
 
         $request->validate([
-            'title'     => 'required|string|max:255',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'title'      => 'required|string|max:255',
+            'image_name' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('image_url')) {
-            // Hapus berkas fisik gambar lama jika diganti
-            if ($gallery->file_path && Storage::disk('public')->exists($gallery->file_path)) {
-                Storage::disk('public')->delete($gallery->file_path);
-            }
-            // Simpan gambar baru ke kolom file_path
-            $gallery->file_path = $request->file('image_url')->store('villa_services', 'public');
+        $path = $gallery->file_path;
+        if ($request->filled('image_name')) {
+            $path = 'villa_services/' . $request->image_name;
         }
 
-        $gallery->caption = $request->title; // 🌟 Diperbarui ke kolom 'caption'
-        $gallery->save();
+        $payload = [
+            'parent_id'   => $gallery->parent_id,
+            'parent_type' => 'villa_service',
+            'caption'     => $request->title,
+            'file_path'   => $path,
+        ];
 
-        return redirect()->route('admin.villa.index')->with('success', 'Data galeri villa berhasil diperbarui!');
+        ApprovalRequest::create([
+            'model_type'  => Gallery::class,
+            'model_id'    => $id,
+            'action_type' => 'update',
+            'payload'     => $payload,
+            'user_id'     => Auth::id(),
+            'status'      => 'pending'
+        ]);
+
+        return redirect()->route('admin.villa.index')
+            ->with('success', '🔄 Permohonan modifikasi galeri villa berhasil dikirim ke Owner!');
     }
 
     /**
-     * 6. Menghapus Foto Galeri
+     * 6. Menghapus Foto Galeri via Approval Owner
      */
     public function destroy($id)
     {
         $gallery = Gallery::where('parent_type', 'villa_service')->findOrFail($id);
 
-        // 🌟 DIUBAH: Membaca properti 'file_path' untuk penghapusan berkas lokal
-        if ($gallery->file_path && Storage::disk('public')->exists($gallery->file_path)) {
-            Storage::disk('public')->delete($gallery->file_path);
-        }
+        $payload = [
+            'parent_id'   => $gallery->parent_id,
+            'parent_type' => 'villa_service',
+            'caption'     => $gallery->caption,
+            'file_path'   => $gallery->file_path,
+        ];
 
-        $gallery->delete();
-        return redirect()->route('admin.villa.index')->with('success', 'Foto fasilitas berhasil dihapus.');
+        ApprovalRequest::create([
+            'model_type'  => Gallery::class,
+            'model_id'    => $id,
+            'action_type' => 'delete',
+            'payload'     => $payload,
+            'user_id'     => Auth::id(),
+            'status'      => 'pending'
+        ]);
+
+        return redirect()->route('admin.villa.index')
+            ->with('success', '🚀 Pengajuan penghapusan foto galeri villa berhasil dikirim ke Owner!');
     }
 }

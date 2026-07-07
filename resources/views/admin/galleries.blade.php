@@ -61,7 +61,7 @@
                             </td>
 
                             <td class="text-center">
-                                <form action="{{ route('admin.galleries.destroy', $gallery->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto ini dari galeri?')">
+                                <form action="{{ route('admin.galleries.destroy', $gallery->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin mengajukan penghapusan foto ini ke Owner?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm px-3 fw-bold" title="Hapus Foto">

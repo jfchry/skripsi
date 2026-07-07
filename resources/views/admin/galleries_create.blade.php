@@ -11,7 +11,7 @@
 <div class="card shadow-sm border-0">
     <div class="card-body p-4">
 
-        <form action="{{ route('admin.galleries.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.galleries.store') }}" method="POST">
             @csrf
 
             <div class="mb-3">
@@ -43,12 +43,14 @@
                 @enderror
             </div>
 
+            <!-- Input Teks Nama File Gambar -->
             <div class="mb-4">
-                <label for="file_path" class="form-label fw-bold small">Pilih File Gambar</label>
-                <input type="file" name="file_path" id="file_path"
-                       class="form-control @error('file_path') is-invalid @enderror" required>
-                <div class="form-text small text-muted">Format berkas: JPG, JPEG, PNG, WEBP. Ukuran file maksimal batas server 3MB.</div>
-                @error('file_path')
+                <label for="image_name" class="form-label fw-bold small">Nama File Gambar</label>
+                <input type="text" name="image_name" id="image_name"
+                       class="form-control @error('image_name') is-invalid @enderror"
+                       placeholder="Contoh: view_bukit_lawang.jpg" required>
+                <div class="form-text small text-muted">Pastikan file gambar sudah diletakkan di dalam folder storage/galleries/.</div>
+                @error('image_name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -57,7 +59,7 @@
 
             <div class="d-flex justify-content-end gap-2">
                 <a href="{{ route('admin.galleries.index') }}" class="btn btn-secondary px-4">Batal</a>
-                <button type="submit" class="btn btn-success px-4 fw-bold">Proses Unggah</button>
+                <button type="submit" class="btn btn-success px-4 fw-bold">Ajukan ke Owner</button>
             </div>
         </form>
 

@@ -217,8 +217,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label small fw-bold">Alamat E-mail</label>
-                        <input type="email" name="email" class="form-control form-control-sm" placeholder="Contoh: budi@gmail.com" required>
+                        <label class="form-label small fw-bold">Alamat E-mail *(Opsional)</label>
+                        <input type="email" name="email" class="form-control form-control-sm" placeholder="Contoh: budi@gmail.com">
                     </div>
 
                     <div class="mb-3">
