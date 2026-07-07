@@ -66,7 +66,7 @@
             <p class="text-muted small mx-auto" style="max-width: 650px;">
                 Mulailah penjelajahan hebat tanpa pusing memikirkan manajemen waktu lapangan. Setiap itinerary di bawah ini siap menyuguhkan titik esensial terbaik TNGL.
             </p>
-        </div>
+        </div>;
 
         <div class="row g-4">
             @forelse($itineraries as $item)

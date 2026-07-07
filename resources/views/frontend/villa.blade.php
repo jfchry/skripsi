@@ -133,6 +133,7 @@
             <p class="text-muted mx-auto small mt-2" style="max-width: 600px;">Detail rincian tipe kamar, kapasitas rombongan, serta fasilitas lengkap untuk kenyamanan bermalam Anda.</p>
         </div>
 
+        
         <div class="row g-4">
             @foreach($room_services as $room)
                 <div class="col-lg-4 col-md-6">

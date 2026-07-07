@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Destination;
+use App\Models\ApprovalRequest; // 🌟 WAJIB DIIMPORT UNTUK WORKFLOW OWNER
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class DestinationController extends Controller
 {
@@ -14,7 +16,7 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        // Mengambil semua data destinasi dari database
+        // Mengambil semua data destinasi dari database utama
         $destinations = Destination::all();
 
         // Mengirim data ke file resources/views/admin/destinations.blade.php
@@ -29,99 +31,132 @@ class DestinationController extends Controller
         return view('admin.destinations_create');
     }
 
-    /**
-     * 3. Memproses Penyimpanan Data Baru dan Upload Gambar (Fitur Create - Action)
+   /**
+     * 3. WORKFLOW JSON: Memproses data baru (Create - Action)
      */
     public function store(Request $request)
     {
-        // Validasi input data dari form admin agar aman sesuai tipe data DB
         $request->validate([
             'name'                 => 'required|string|max:255',
             'location_description' => 'required|string',
-            'image_url'            => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validasi foto maks 2MB
+            'image_url'            => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
         ]);
 
         $path = null;
 
-        // Proses Logika Upload Gambar ke Server
-        if ($request->hasFile('image_url')) {
-            // Menyimpan file gambar asli ke folder: storage/app/public/destinations
-            $path = $request->file('image_url')->store('destinations', 'public');
+        // Memastikan file ditangkap dengan benar dari name="image_url" di HTML
+        if ($request->hasFile('image_url') && $request->file('image_url')->isValid()) {
+            $file = $request->file('image_url');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            // Menggunakan move() langsung ke public storage agar sinkron dengan update & link Laragon
+            $file->move(public_path('storage/destinations'), $fileName);
+            $path = 'destinations/' . $fileName;
         }
 
-        // Simpan data string teks & path gambar ke database melalui Model Destination
-        Destination::create([
+        $payload = [
             'name'                 => $request->name,
             'location_description' => $request->location_description,
+            'image'                => $path,
             'image_url'            => $path,
+        ];
+
+        \App\Models\ApprovalRequest::create([
+            'model_type'  => \App\Models\Destination::class,
+            'model_id'    => null,
+            'action_type' => 'create',
+            'payload'     => $payload,
+            'user_id'     => \Illuminate\Support\Facades\Auth::id(),
+            'status'      => 'pending'
         ]);
 
-        // Mengembalikan pengguna ke halaman utama tabel dengan membawa flash message sukses
-        return redirect()->route('admin.destinations.index')->with('success', 'Destinasi wisata berhasil ditambahkan!');
+        return redirect()->route('admin.destinations.index')
+            ->with('success', '🚀 Pengajuan destinasi baru berhasil dikirim! Menunggu persetujuan Owner.');
     }
 
     /**
-     * 4. Menampilkan Halaman Form Edit Data Lama (Fitur Update - View)
-     */
-    public function edit($id)
-    {
-        // Mencari data destinasi berdasarkan ID, jika tidak ketemu otomatis memunculkan error 404
-        $destination = Destination::findOrFail($id);
-
-        return view('admin.destinations_edit', compact('destination'));
-    }
-
-    /**
-     * 5. Memproses Perubahan Data Lama (Fitur Update - Action)
+     * 4. WORKFLOW JSON: Memproses modifikasi data (Update - Action)
      */
     public function update(Request $request, $id)
     {
         $destination = Destination::findOrFail($id);
 
-        // Validasi input form (Foto bersifat opsional saat proses edit)
         $request->validate([
             'name'                 => 'required|string|max:255',
             'location_description' => 'required|string',
-            'image_url'            => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_url'            => 'nullable',
         ]);
 
-        // Memperbarui data teks
-        $destination->name = $request->name;
-        $destination->location_description = $request->location_description;
+        // Mengambil file bawaan asli dari database jika tidak ganti foto
+        $path = $destination->image_url ?? $destination->image;
 
-        // Cek apakah admin mengunggah file foto baru?
-        if ($request->hasFile('image_url')) {
-            // Hapus file foto fisik yang lama dari server storage agar tidak menumpuk jadi sampah
-            if ($destination->image_url && Storage::disk('public')->exists($destination->image_url)) {
-                Storage::disk('public')->delete($destination->image_url);
-            }
+        $fileKey = $request->hasFile('image_url') ? 'image_url' : ($request->hasFile('image') ? 'image' : ($request->hasFile('photo') ? 'photo' : null));
 
-            // Proses upload file foto baru
-            $path = $request->file('image_url')->store('destinations', 'public');
-            $destination->image_url = $path;
+        if ($fileKey && $request->file($fileKey)->isValid()) {
+            $file = $request->file($fileKey);
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('storage/destinations'), $fileName);
+            $path = 'destinations/' . $fileName;
         }
 
-        // Simpan perubahan ke database
-        $destination->save();
+        $payload = [
+            'name'                 => $request->name,
+            'location_description' => $request->location_description,
+            'image'                => $path,
+            'image_url'            => $path,
+        ];
 
-        return redirect()->route('admin.destinations.index')->with('success', 'Destinasi wisata berhasil diperbarui!');
+        ApprovalRequest::create([
+            'model_type'  => Destination::class,
+            'model_id'    => $id,
+            'action_type' => 'update',
+            'payload'     => $payload,
+            'user_id'     => Auth::id(),
+            'status'      => 'pending'
+        ]);
+
+        return redirect()->route('admin.destinations.index')
+            ->with('success', '🔄 Permohonan modifikasi destinasi berhasil dikirim ke Owner untuk diperiksa!');
     }
 
     /**
-     * 6. Menghapus Data Destinasi dan File Fotonya (Fitur Delete)
+     * 6. 🌟 WORKFLOW JSON: Membelokkan Proses Hapus Data (Delete)
      */
     public function destroy($id)
     {
+        // Pastikan datanya eksis
         $destination = Destination::findOrFail($id);
 
-        // 1. Hapus file foto fisik di folder storage terlebih dahulu
-        if ($destination->image_url && Storage::disk('public')->exists($destination->image_url)) {
-            Storage::disk('public')->delete($destination->image_url);
-        }
+        // Pengapusan dimasukkan ke antrean izin owner dengan payload nama konten yang jelas
+        ApprovalRequest::create([
+            'model_type'  => Destination::class,
+            'model_id'    => $id,
+            'action_type' => 'delete',
+            'payload'     => [
+                'name' => $destination->name
+            ],
+            'user_id'     => Auth::id(),
+            'status'      => 'pending'
+        ]);
 
-        // 2. Hapus data baris dari tabel database
-        $destination->delete();
-
-        return redirect()->route('admin.destinations.index')->with('success', 'Destinasi wisata berhasil dihapus!');
+        return redirect()->route('admin.destinations.index')
+            ->with('success', '⚠️ Permohonan penghapusan destinasi telah diajukan kepada Owner!');
     }
+
+    /**
+     * 7. Menyembunyikan notifikasi penolakan dengan mengubah status menjadi 'seen'
+     */
+    public function dismissNotification($id)
+    {
+            $approval = ApprovalRequest::where('id', $id)
+                                ->where('user_id', Auth::id())
+                                ->firstOrFail();
+
+            $approval->update([
+            'status' => 'seen'
+            ]);
+
+        return redirect()->back()->with('success', 'Notifikasi penolakan berhasil diarsipkan.');
+    }
+
 }

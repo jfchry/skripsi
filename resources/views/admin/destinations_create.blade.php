@@ -12,7 +12,10 @@
     <div class="card-body p-4">
 
         <form action="{{ route('admin.destinations.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf <div class="mb-3">
+            @csrf
+
+            {{-- Input Nama Destinasi Wisata --}}
+            <div class="mb-3">
                 <label for="name" class="form-label fw-bold small">Nama Destinasi Wisata</label>
                 <input type="text" name="name" id="name"
                        class="form-control @error('name') is-invalid @enderror"
@@ -23,6 +26,7 @@
                 @enderror
             </div>
 
+            {{-- Input Deskripsi Lengkap Lokasi --}}
             <div class="mb-3">
                 <label for="location_description" class="form-label fw-bold small">Deskripsi Lengkap Lokasi</label>
                 <textarea name="location_description" id="location_description" rows="6"
@@ -33,11 +37,12 @@
                 @enderror
             </div>
 
+            {{-- Input Unggah Foto Destinasi --}}
             <div class="mb-4">
-                <label for="image_url" class="form-label fw-bold small">Unggah Foto Destinasi</label>
+                <label for="image_url" class="form-label fw-bold small">Unggah Foto Destinasi (Opsional)</label>
                 <input type="file" name="image_url" id="image_url"
-                       class="form-control @error('image_url') is-invalid @enderror" required>
-                <div class="form-text small text-muted">Format yang didukung: JPG, JPEG, PNG. Maksimal ukuran file 2MB.</div>
+                       class="form-control @error('image_url') is-invalid @enderror">
+                <div class="form-text small text-muted">Format yang didukung: JPG, JPEG, PNG. Maksimal ukuran file 10MB.</div>
                 @error('image_url')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

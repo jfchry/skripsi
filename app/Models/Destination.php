@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destination extends Model
 {
-    // Nama tabel didefinisikan secara eksplisit agar aman
     protected $table = 'destinations';
 
-    // Kolom yang diizinkan untuk diisi secara massal via controller
+    // 🌟 SELESAI: Menambahkan 'image_url' agar tidak diblokir Laravel saat disetujui Owner
     protected $fillable = [
         'name',
         'location_description',
+        'image',
         'image_url'
     ];
 }

@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 
 @section('content')
-
+if()
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-opacity-75">
     <div class="container">
         <a class="navbar-brand fw-bold" href="{{ url('/') }}">
@@ -18,12 +18,48 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                 <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
                 <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
                 <li class="nav-item"><a class="nav-link" href="#villa">Villa</a></li>
                 <li class="nav-item"><a class="nav-link" href="#discover">Discover</a></li>
+                
+                <li class="nav-item d-none d-lg-block mx-2 text-secondary">|</li>
+
+                {{-- Cek Jika Pengunjung Belum Login --}}
+                @guest
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm px-3" href="{{ route('login') }}">
+                            <i class="bi bi-box-arrow-in-right"></i> Login Admin
+                        </a>
+                    </li>
+                @endguest
+
+                {{-- Cek Jika Admin Sudah Login --}}
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-warning" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> Admin
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-menu-item dropdown-item" href="{{ route('admin.dashboard') }}">
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>

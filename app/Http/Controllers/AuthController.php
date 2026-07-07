@@ -13,22 +13,27 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    // 2. Proses Validasi Akun Admin (Disesuaikan dengan tabel users kustom)
+    // 2. Proses Validasi Akun (Disesuaikan dengan multi-role: Admin & Owner)
     public function loginProcess(Request $request)
     {
-        // Validasi inputan admin (sekarang menerima 'username', bukan 'email')
+        // Validasi inputan login (menerima 'username', bukan 'email')
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
         ]);
 
-        // Laravel secara default mencari kolom 'email'.
-        // Karena databasemu menggunakan 'username', baris Auth::attempt ini otomatis menyesuaikannya.
+        // Proses pencocokan username dan password ke database
         if (Auth::attempt($credentials)) {
-            // Jika cocok, buat ulang session untuk keamanan
+            // Jika cocok, buat ulang session untuk mencegah session fixation attack
             $request->session()->regenerate();
 
-            // Redirect langsung ke halaman dashboard admin
+            // 🌟 SELEKSI UTAMA: Alihkan jalur berdasarkan role user yang berhasil login
+            if (Auth::user()->role === 'owner') {
+                // Jika Owner yang login, arahkan ke dashboard persetujuan data owner
+                return redirect()->route('owner.dashboard')->with('success', 'Selamat Datang Kembali, Owner!');
+            }
+
+            // Jika Admin yang login, arahkan ke halaman dashboard admin seperti semula
             return redirect()->intended('admin/dashboard');
         }
 
@@ -41,8 +46,10 @@ class AuthController extends Controller
     // 3. Proses Keluar Sistem (Logout)
     public function logout(Request $request)
     {
+        // Hapus session autentikasi
         Auth::logout();
 
+        // Hancurkan session lama dan buat ulang token CSRF demi keamanan
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

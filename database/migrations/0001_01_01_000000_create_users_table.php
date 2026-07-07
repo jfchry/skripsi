@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('username', 50)->unique();
             $table->string('password', 255); // Diubah ke 'password' agar Auth Laravel langsung jalan otomatis
             $table->string('full_name', 100);
-            $table->enum('role', ['admin', 'editor'])->default('admin');
+            $table->enum('role', ['admin', 'owner'])->default('admin');
             $table->rememberToken(); // Tambahan wajib Laravel untuk fitur "Remember Me" saat login
             $table->timestamps(); // Otomatis membuat created_at dan updated_at
         });

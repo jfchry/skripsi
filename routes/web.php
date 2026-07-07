@@ -16,7 +16,10 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\ContentPageController;
 use App\Http\Controllers\Admin\VillaGalleryController;
 use App\Http\Controllers\Admin\VillaRoomController;
-use App\Http\Controllers\Admin\AdminInquiryController; // Disesuaikan dengan class yang dipanggil di bawah
+use App\Http\Controllers\Admin\AdminInquiryController;
+
+// Owner Controller
+use App\Http\Controllers\Owner\ApprovalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +51,7 @@ Route::post('/send-inquiry', [FrontendInquiryController::class, 'store'])->name(
 
 /*
 |--------------------------------------------------------------------------
-| 2. Autentikasi Admin Routes
+| 2. Autentikasi Routes
 |--------------------------------------------------------------------------
 */
 
@@ -62,17 +65,18 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| 3. Secure Backend / Admin Routes (Diproteksi Middleware Auth)
+| 3. Secure Backend Admin Routes (Hanya untuk Role Admin)
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
 
     // Dashboard Utama Admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Modul CRUD Otomatis (Menggunakan Resource)
     Route::resource('destinations', DestinationController::class);
+    Route::post('/approval/{id}/dismiss', [DestinationController::class, 'dismissNotification'])->name('approval.dismiss');
     Route::resource('galleries', GalleryController::class)->except(['show', 'edit', 'update']);
     Route::resource('villa-galleries', VillaGalleryController::class)->names('villa')->except(['show', 'edit', 'update']);
     Route::resource('villa-rooms', VillaRoomController::class)->names('rooms')->except(['show']);
@@ -101,4 +105,18 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::get('/', [AdminInquiryController::class, 'index'])->name('index');
         Route::delete('/{id}', [AdminInquiryController::class, 'destroy'])->name('destroy');
     });
+});
+
+/*
+|--------------------------------------------------------------------------
+| 4. Secure Backend Owner Routes (Hanya untuk Role Owner)
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('owner')->name('owner.')->middleware(['auth', 'role:owner'])->group(function () {
+    // Jalur menuju dashboard persetujuan data owner
+    Route::get('/dashboard', [ApprovalController::class, 'index'])->name('dashboard');
+    Route::get('/history', [ApprovalController::class, 'history'])->name('history');
+    Route::get('/approval/{id}/preview', [ApprovalController::class, 'preview'])->name('approval.preview');
+    Route::post('/approval/{id}/action', [ApprovalController::class, 'action'])->name('approval.action');
 });

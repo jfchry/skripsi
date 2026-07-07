@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('author_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('slug', 100)->unique();
             $table->string('title', 150);
+            $table->string('type', 50)->default('page'); // 🌟 SELESAI: Ditambahkan kolom 'type' untuk membedakan guide/page
             $table->text('body');
             $table->string('image_url', 255)->nullable();
             $table->enum('status', ['draft', 'published'])->default('draft');
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 150);
             $table->text('location_description');
+            $table->string('image', 255)->nullable(); // 🌟 SELESAI: Ditambahkan kolom 'image' sebagai backup/multi-key adaptif
             $table->string('image_url', 255)->nullable();
             $table->timestamps();
         });
