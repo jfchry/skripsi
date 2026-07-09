@@ -1,30 +1,25 @@
 @extends('layouts.frontend')
 
 @section('content')
-if()
+<!-- SECTION NAVIGASI (NAVBAR) -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-opacity-75">
     <div class="container">
         <a class="navbar-brand fw-bold" href="{{ url('/') }}">
             Bukit Lawang
         </a>
 
-        <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-                <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
-                <li class="nav-item"><a class="nav-link" href="#villa">Villa</a></li>
-                <li class="nav-item"><a class="nav-link" href="#discover">Discover</a></li>
-                
+                <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+                <li class="nav-item"><a class="nav-link" href="#experience">Pengalaman</a></li>
+                <li class="nav-item"><a class="nav-link" href="#journey">Itinerary</a></li>
+                <li class="nav-item"><a class="nav-link" href="#villa">Penginapan</a></li>
+                <li class="nav-item"><a class="nav-link" href="#discover">Galeri</a></li>
+
                 <li class="nav-item d-none d-lg-block mx-2 text-secondary">|</li>
 
                 {{-- Cek Jika Pengunjung Belum Login --}}
@@ -44,7 +39,7 @@ if()
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-menu-item dropdown-item" href="{{ route('admin.dashboard') }}">
+                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                                     Dashboard
                                 </a>
                             </li>
@@ -65,55 +60,88 @@ if()
     </div>
 </nav>
 
-<section class="hero py-5 mt-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7">
-                        <p class="text-uppercase fw-bold text-success mb-2 small" style="letter-spacing: 1.5px;">
-                            🌿 Your Ultimate Eco-Adventure Gateway
-                        </p>
-                        <h1 class="display-2 fw-bold text-white tracking-tight" style="letter-spacing: -1.5px; line-height: 1.1;">
-                            Where the Wild Rainforest Meets Your Soul
-                        </h1>
-                        <p class="lead mt-4 text-white fs-5" style="line-height: 1.7; text-align: justify;">
-                            Step into the untamed beauty of Gunung Leuser National Park. Encounter magnificent orangutans in their natural habitat, conquer the thrills of wild river tubing, and forge unforgettable memories in the heart of Sumatra's greenest paradise.
-                        </p>
-                        <a href="{{ route('destinations.index') }}" class="btn btn-success btn-lg mt-3 fw-bold shadow-sm px-4 rounded-pill">
-                            Start Your Journey Now ➡️
-                        </a>
-                    </div>
-                </div>
-</section>
-
-<section id="about" class="section-padding py-5">
-    <div class="container text-center py-3">
-        <h2 class="fw-bold mb-4 text-dark display-6" style="letter-spacing: -0.5px;">
-            The Sacred Sanctuary of Sumatra's Wildlife
-        </h2>
-        <p class="lead mx-auto text-muted" style="max-width: 800px; line-height: 1.8; font-size: 1.1rem;">
-            Bukit Lawang is not just a destination; it is the ultimate living frontier where global conservation meets raw, unbridled adventure. Nestled on the edge of the legendary Gunung Leuser National Park, this iconic haven invites you to witness the ancient cycle of the rainforest, protect endangered ecosystems, and immerse yourself in the authentic rhythm of riverside life.
-        </p>
-        <a href="{{ route('guides.index') }}" class="btn btn-outline-success mt-3 fw-bold px-4 rounded-pill btn-sm py-2 shadow-sm">
-            Unlock the Insider Travel Guide 🗺️
-        </a>
+<!-- SECTION HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <p class="text-uppercase fw-bold text-success mb-2 small" style="letter-spacing: 1.5px;">
+                    🌿 Gerbang Petualangan Ekowisata Terbaik Anda
+                </p>
+                <h1 class="display-2 fw-bold text-white tracking-tight" style="letter-spacing: -1.5px; line-height: 1.1;">
+                    Di Mana Hutan Hujan Liar Menyatu dengan Jiwa Anda
+                </h1>
+                <p class="lead mt-4 text-white fs-5" style="line-height: 1.7; text-align: justify;">
+                    Melangkah masuk ke dalam keindahan alami Taman Nasional Gunung Leuser. Temui orangutan megah di habitat asli mereka, taklukkan jeram liar sungai tubing, dan ukir kenangan tak terlupakan di jantung surga hijau Sumatra.
+                </p>
+                <a href="{{ route('destinations.index') }}" class="btn btn-success btn-lg mt-3 fw-bold shadow-sm px-4 rounded-pill">
+                    Mulai Petualangan Anda Sekarang ➡️
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 
+<!-- SECTION TENTANG (ABOUT) -->
+<section id="about" class="section-padding py-5 bg-light border-bottom">
+    <div class="container py-3">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark display-6" style="letter-spacing: -0.5px;">
+                Suaka Suci Perlindungan Satwa Liar Sumatra
+            </h2>
+            <div class="mx-auto bg-success rounded" style="width: 60px; height: 3px;"></div>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <!-- KOLOM KIRI: KONSERVASI GLOBAL & EKOSISTEM -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 bg-white shadow-sm p-4 rounded-3 border-start border-4 border-success">
+                    <h5 class="fw-bold text-dark mb-3 d-flex align-items-center">
+                        <span class="me-2">🌿</span> Konservasi Global & Petualangan Alam Belantara
+                    </h5>
+                    <p class="text-muted" style="line-height: 1.8; font-size: 1.05rem; text-align: justify;">
+                        Bukit Lawang bukan sekadar destinasi pariwisata biasa; kawasan ini merupakan garda terdepan internasional tempat bertemunya misi konservasi global dengan petualangan alam yang murni. Terletak strategis di ambang pintu Taman Nasional Gunung Leuser (TNGL) yang legendaris, suaka ini menjadi rumah bagi keanekaragaman hayati dunia yang tak ternilai, termasuk flora langka dan fauna endemik. Melalui integrasi pariwisata berkelanjutan, kawasan ini mengajak para wisatawan dari berbagai belahan dunia untuk menyaksikan langsung siklus hidup kuno hutan hujan tropis purba, berkontribusi aktif dalam memitigasi kerusakan ekosistem yang terancam punah, serta mengadopsi sekaligus menghargai ritme kearifan lokal kehidupan masyarakat yang menetap di sepanjang tepian daerah aliran Sungai Bahorok.
+                    </p>
+                </div>
+            </div>
+
+            <!-- KOLOM KANAN: SEJARAH & REHABILITASI ORANGUTAN -->
+            <div class="col-md-6">
+                <div class="card h-100 border-0 bg-white shadow-sm p-4 rounded-3 border-start border-4 border-success">
+                    <h5 class="fw-bold text-dark mb-3 d-flex align-items-center">
+                        <span class="me-2">📜</span> Warisan Sejarah Panjang & Pusat Rehabilitasi (Sejak 1973)
+                    </h5>
+                    <p class="text-muted mb-0" style="line-height: 1.8; font-size: 1.05rem; text-align: justify;">
+                        Silsilah ekowisata di kawasan ini berakar kuat sejak tahun <strong>1973</strong>, ketika sepasang ahli zoologi berkebangsaan Swiss, Monica Borner Regina and Regina Frey, memprakarsai berdirinya pusat rehabilitasi orangutan resmi. Fokus utama dari proyek monumental tersebut adalah melakukan proses karantina, perawatan medis, dan pelatihan intensif bagi Orangutan Sumatra (<em>Pongo abelii</em>) korban eksploitasi maupun peliharaan ilegal agar mereka mampu mengembalikan insting liar dan bertahan hidup secara mandiri sebelum dilepasliarkan kembali ke habitat aslinya. Seiring berjalannya dekade, fondasi konservasi yang kokoh ini berhasil mentransformasi sebuah desa terpencil menjadi kiblat ekowisata berbasis komunitas (*community-based ecotourism*) berskala internasional, yang secara harmonis menjembatani pelestarian satwa liar dengan pemberdayaan ekonomi masyarakat setempat.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{{ route('guides.index') }}" class="btn btn-success fw-bold px-4 rounded-pill btn-sm py-2 shadow-sm transition-transform" style="letter-spacing: 0.3px;">
+                Buka Panduan Perjalanan Eksklusif 🗺️
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION PENGALAMAN (EXPERIENCE CAROUSEL) -->
 <section id="experience" class="section-padding bg-light py-5">
     <div class="container py-2">
         <div class="row align-items-center">
             <div class="col-lg-5 mb-4 mb-lg-0">
                 <p class="text-uppercase fw-bold text-success mb-2 small" style="letter-spacing: 1px;">
-                    📸 Captured By Explorers
+                    📸 Diabadikan Oleh Penjelajah
                 </p>
                 <h2 class="fw-bold mb-3 text-dark tracking-tight" style="letter-spacing: -0.5px;">
-                    Visual Journeys Through the Wild
+                    Perjalanan Visual Menembus Belantara
                 </h2>
                 <p class="text-muted small leading-relaxed" style="text-align: justify; line-height: 1.7;">
-                    Saksikan lembar dokumentasi orisinal langsung dari sudut pandang para penjelajah dunia. Mulai dari kehangatan interaksi satwa di bawah kanopi hutan hujan purba, jernihnya riak jeram Bahorok, hingga fragmen petualangan magis yang terekam nyata di setiap sudut Bukit Lawang.
+                    Saksikan lembar dokumentasi orisinal yang merekam keindahan autentik Bukit Lawang langsung dari sudut pandang para penjelajah dunia. Kolase visual ini merangkum tiga pilar utama ekowisata kami: kehangatan interaksi satwa endemik di bawah kanopi fajar, derasnya tantangan jeram Sungai Bahorok, serta fragmen petualangan magis yang terekam nyata. Gulirkan gambar untuk melihat detail momentum epik di setiap sudut surga hijau Sumatra.
                 </p>
                 <a href="{{ route('destinations.index') }}" class="btn btn-success fw-bold px-4 rounded-pill shadow-sm btn-sm py-2 mt-2">
-                    Explore Experiences ➡️
+                    Lihat Pengalaman Wisata ➡️
                 </a>
             </div>
 
@@ -122,11 +150,7 @@ if()
                     <div class="carousel-inner">
                         @forelse($experience_galleries as $index => $gallery)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                <img src="{{ asset('storage/' . $gallery->file_path) }}"
-                                     class="d-block w-100"
-                                     style="height: 400px; object-fit: cover;"
-                                     alt="{{ $gallery->caption ?? 'Foto Experience' }}">
-
+                                <img src="{{ asset('storage/' . $gallery->file_path) }}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="{{ $gallery->caption ?? 'Foto Pengalaman' }}">
                                 @if($gallery->caption)
                                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded py-2 px-3">
                                         <p class="mb-0 fw-semibold text-white small">{{ $gallery->caption }}</p>
@@ -135,14 +159,13 @@ if()
                             </div>
                         @empty
                             <div class="carousel-item active">
-                                <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?q=80&w=1200" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Default 1">
+                                <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?q=80&w=1200" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Gambar Default 1">
                             </div>
                             <div class="carousel-item">
-                                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Default 2">
+                                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Gambar Default 2">
                             </div>
                         @endforelse
                     </div>
-
                     <button class="carousel-control-prev" type="button" data-bs-target="#experienceCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
                     <button class="carousel-control-next" type="button" data-bs-target="#experienceCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
                 </div>
@@ -151,47 +174,83 @@ if()
     </div>
 </section>
 
+<!-- SECTION PAKET WISATA (JOURNEY) -->
 <section id="journey" class="section-padding py-5 bg-white">
     <div class="container py-2">
         <div class="text-center mb-5">
             <p class="text-uppercase fw-bold text-success mb-2 small" style="letter-spacing: 1px;">
-                🌿 Tailored Expeditions
+                🌿 Rencana Perjalanan Wisata
             </p>
-            <h2 class="fw-bold text-dark tracking-tight" style="letter-spacing: -0.5px;">Choose Your Adventure Style</h2>
-            <p class="text-muted small">Setiap rute dirancang untuk memberikan pengalaman terbaik sesuai ketersediaan waktu Anda.</p>
+            <h2 class="fw-bold text-dark tracking-tight" style="letter-spacing: -0.5px;">Pilih Gaya Petualangan Anda</h2>
+            <p class="text-muted small">Setiap rute dirancang secara komprehensif guna memberikan pengalaman ekowisata terbaik sesuai ketersediaan waktu Anda.</p>
         </div>
 
         <div class="row g-4">
+            <!-- PAKET 1 HARI -->
             <div class="col-lg-4">
-                <div class="card shadow border-0 h-100 rounded-4 border border-light">
-                    <div class="card-body p-4">
-                        <h3 class="h5 fw-bold text-dark mb-3">⏱️ Efficient 1-Day Trip</h3>
-                        <hr class="opacity-25">
-                        <p class="small text-muted mb-0" style="text-align: justify; line-height: 1.6;">
-                            Cocok untuk kunjungan kilat terencana. Mengoptimalkan waktu lapangan yang terbatas untuk mencakup poin esensial utama mulai dari trekking cepat hingga river tubing langsung.
+                <div class="card shadow border-0 h-100 rounded-4 border border-light travel-card">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h3 class="h5 fw-bold text-dark mb-2">⏱️ Paket Kilat (1-Day Trip)</h3>
+                        <span class="badge bg-success-subtle text-success border border-success border-opacity-25 align-self-start mb-3 px-2 py-1 rounded">Eksplorasi Singkat</span>
+                        <hr class="opacity-25 my-2">
+                        <p class="small text-muted mb-4" style="text-align: justify; line-height: 1.6;">
+                            Dirancang khusus bagi wisatawan dengan keterbatasan waktu lapangan namun tetap ingin merasakan esensi utama belantara Sumatra. Paket efisien ini mengoptimalkan lini masa kunjungan untuk mencakup poin-poin krusial dalam satu hari penuh tanpa mengorbankan keamanan.
                         </p>
+                        <div class="mt-auto">
+                            <h6 class="fw-bold text-dark small mb-2">Aktivitas Utama:</h6>
+                            <ul class="list-unstyled small text-muted mb-0 class-gap-1">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Jungle Trekking Durasi 3-4 Jam</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Pengamatan Orangutan Sumatra</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Tradisional River Tubing Sungai Bahorok</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Pemandu Wisata (Guide) Berlisensi</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- PAKET 2D1N -->
             <div class="col-lg-4">
-                <div class="card shadow border-0 h-100 rounded-4 border border-light">
-                    <div class="card-body p-4">
-                        <h3 class="h5 fw-bold text-success mb-3">🛶 Balanced 2D1N Tour</h3>
-                        <hr class="opacity-25">
-                        <p class="small text-muted mb-0" style="text-align: justify; line-height: 1.6;">
-                            Pilihan paling direkomendasikan untuk menyeimbangkan petualangan rimba dan kenyamanan istirahat. Merasakan eksotisme malam hutan hujan tanpa kelelahan fisik berlebih.
+                <div class="card shadow border-0 h-100 rounded-4 border border-light travel-card border-start border-4 border-success">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h3 class="h5 fw-bold text-success mb-2">🛶 Paket Populer (2D1N Tour)</h3>
+                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning border-opacity-25 align-self-start mb-3 px-2 py-1 rounded">Paling Direkomendasikan</span>
+                        <hr class="opacity-25 my-2">
+                        <p class="small text-muted mb-4" style="text-align: justify; line-height: 1.6;">
+                            Opsi ideal yang menyeimbangkan antara aktivitas petualangan fisik belantara dengan kenyamanan relaksasi. Wisatawan diajak untuk merasakan transisi eksotisme suasana hutan hujan tropis dari siang hingga malam hari dengan akomodasi penginapan yang representatif.
                         </p>
+                        <div class="mt-auto">
+                            <h6 class="fw-bold text-dark small mb-2">Aktivitas & Fasilitas:</h6>
+                            <ul class="list-unstyled small text-muted mb-0 class-gap-1">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Edukasi Konservasi & Tracking Mendalam</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Menginap 1 Malam di Ecoresort Pilihan</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Makan Malam Tradisional & Sarapan</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Pengamatan Satwa Nokturnal Terpandu</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- PAKET 3D2N -->
             <div class="col-lg-4">
-                <div class="card shadow border-0 h-100 rounded-4 border border-light">
-                    <div class="card-body p-4">
-                        <h3 class="h5 fw-bold text-dark mb-3">🐆 Complete 3D2N Survival</h3>
-                        <hr class="opacity-25">
-                        <p class="small text-muted mb-0" style="text-align: justify; line-height: 1.6;">
-                            Dirancang khusus bagi pecinta alam murni dan backpacker sejati. Penjelajahan mendalam kawasan lindung, pengamatan satwa liar malam hari, dan interaksi ekosistem penuh.
+                <div class="card shadow border-0 h-100 rounded-4 border border-light travel-card">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h3 class="h5 fw-bold text-dark mb-2">🐆 Paket Penyintas (3D2N Survival)</h3>
+                        <span class="badge bg-danger-subtle text-danger border border-danger border-opacity-25 align-self-start mb-3 px-2 py-1 rounded">Pencinta Alam Murni</span>
+                        <hr class="opacity-25 my-2">
+                        <p class="small text-muted mb-4" style="text-align: justify; line-height: 1.6;">
+                            Diformulasikan secara mendalam bagi para backpacker sejati, peneliti, maupun pencinta alam murni yang ingin merasakan esensi bertahan hidup di dalam hutan. Paket ini menawarkan ekspedisi total menyusuri area lindung terdalam yang jarang terjamah oleh wisatawan umum.
                         </p>
+                        <div class="mt-auto">
+                            <h6 class="fw-bold text-dark small mb-2">Aktivitas & Fasilitas:</h6>
+                            <ul class="list-unstyled small text-muted mb-0 class-gap-1">
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Navigasi & Jungle Survival Course</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Camping Ground di Tengah Belantara Leuser</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Manajemen Logistik Berkelanjutan</li>
+                                <li><i class="bi bi-check-circle-fill text-success me-2"></i> Identifikasi Flora Medis & Fauna Langka</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -199,87 +258,97 @@ if()
 
         <div class="text-center mt-5">
             <a href="{{ route('itinerary.index') }}" class="btn btn-success btn-lg fw-bold px-4 rounded-pill shadow-sm">
-                Explore All Itineraries
+                Jelajahi Semua Jadwal Perjalanan
             </a>
         </div>
     </div>
 </section>
 
+<!-- SECTION PENGINAPAN (VILLA) -->
 <section id="villa" class="section-padding bg-dark text-white py-5">
     <div class="container py-3">
         <div class="text-center mb-5">
             <p class="text-uppercase fw-bold text-success mb-2 small" style="letter-spacing: 1px;">
-                🌲 Stay in Harmony
+                🌲 Hidup Harmonis dengan Alam
             </p>
             <h2 class="display-5 fw-bold text-white">Villa Etalauser Ecoresort</h2>
-            <p class="lead text-light text-opacity-75 small">Escape into nature while enjoying modern comfort.</p>
+            <p class="lead text-light text-opacity-75 small">Pengalaman menginap ramah lingkungan di tepi Sungai Bahorok yang memadukan kemurnian ekosistem tropis Leuser langsung dari jendela kamar Anda, tanpa kehilangan harmoni fasilitas modern yang autentik.</p>
         </div>
 
         <div class="row align-items-center g-5">
+            <!-- KOLOM KIRI: VISUAL UTAMA VILLA -->
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200" class="img-fluid rounded-4 shadow-lg" alt="Villa Etalauser Resort front view">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200" class="img-fluid rounded-4 shadow-lg" alt="Tampak depan Villa Etalauser Resort front view">
             </div>
 
+            <!-- KOLOM KANAN: HIGHLIGHT 4 FASILITAS UNGGULAN -->
             <div class="col-lg-6">
                 <div class="row g-3 mb-4">
-                <!-- Kolom 1 -->
-                <div class="col-6">
-                    <div class="p-3 border border-white border-opacity-10 rounded-4 bg-white bg-opacity-10 shadow-sm" style="backdrop-filter: blur(4px);">
-                        <span class="d-block fw-bold text-success mb-1">🛏️ Comfortable Rooms</span>
-                        <p class="text-white-50 small mb-0" style="font-size: 11px; line-height: 1.5;">Kamar bersih standar resort dengan fasilitas lengkap.</p>
+                    <!-- FASILITAS 1: KAMAR NATURAL -->
+                    <div class="col-6">
+                        <div class="p-3 border border-white border-opacity-10 rounded-4 bg-white bg-opacity-10 h-100 shadow-sm" style="backdrop-filter: blur(4px);">
+                            <span class="d-block fw-bold text-success mb-1">🛏️ Kamar &amp; Villa Natural</span>
+                            <p class="text-white-50 small mb-0" style="font-size: 11px; line-height: 1.5; text-align: justify;">
+                                Unit penginapan berkonsep arsitektur semi-terbuka menggunakan material organik alami, namun tetap menjamin kenyamanan istirahat standar resort.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FASILITAS 2: KANTIN JUNGLE BAMBU -->
+                    <div class="col-6">
+                        <div class="p-3 border border-white border-opacity-10 rounded-4 bg-white bg-opacity-10 h-100 shadow-sm" style="backdrop-filter: blur(4px);">
+                            <span class="d-block fw-bold text-success mb-1">🎋 Kantin Bertema Hutan</span>
+                            <p class="text-white-50 small mb-0" style="font-size: 11px; line-height: 1.5; text-align: justify;">
+                                Area restoran dan tempat bersantai komunal yang dirancang estetis penuh ornamen bambu tradisional dengan atmosfer lanskap hutan hujan tropis.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FASILITAS 3: AKSES SUNGAI -->
+                    <div class="col-6">
+                        <div class="p-3 border border-white border-opacity-10 rounded-4 bg-white bg-opacity-10 h-100 shadow-sm" style="backdrop-filter: blur(4px);">
+                            <span class="d-block fw-bold text-success mb-1">🌊 Akses Sungai Dekat</span>
+                            <p class="text-white-50 small mb-0" style="font-size: 11px; line-height: 1.5; text-align: justify;">
+                                Lokasi strategis tepat di bibir daerah aliran Sungai Bahorok, memudahkan wisatawan menjangkau area aktivitas air hanya dalam beberapa langkah kaki.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FASILITAS 4: KONEKTIVITAS INTERNET -->
+                    <div class="col-6">
+                        <div class="p-3 border border-white border-opacity-10 rounded-4 bg-white bg-opacity-10 h-100 shadow-sm" style="backdrop-filter: blur(4px);">
+                            <span class="d-block fw-bold text-success mb-1">🌐 Jaringan Internet Stabil</span>
+                            <p class="text-white-50 small mb-0" style="font-size: 11px; line-height: 1.5; text-align: justify;">
+                                Infrastruktur jaringan Wi-Fi yang merata dan terjangkau di area publik penginapan untuk mendukung kebutuhan komunikasi digital Anda.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <!-- Kolom 2 -->
-                <div class="col-6">
-                    <div class="p-3 border border-white border-opacity-10 rounded-4 bg-white bg-opacity-10 shadow-sm" style="backdrop-filter: blur(4px);">
-                        <span class="d-block fw-bold text-success mb-1">🦅 Wild Nature View</span>
-                        <p class="text-white-50 small mb-0" style="font-size: 11px; line-height: 1.5;">Suasana lanskap hijau leuser langsung di jendela Anda.</p>
-                    </div>
-                </div>
-                <!-- Kolom 3 -->
-                <div class="col-6">
-                    <div class="p-3 border border-white border-opacity-10 rounded-4 bg-white bg-opacity-10 shadow-sm" style="backdrop-filter: blur(4px);">
-                        <span class="d-block fw-bold text-success mb-1">☕ Authentic Restaurant</span>
-                        <p class="text-white-50 small mb-0" style="font-size: 11px; line-height: 1.5;">Menu makanan segar khas lokal untuk memulihkan energi.</p>
-                    </div>
-                </div>
-                <!-- Kolom 4 -->
-                <div class="col-6">
-                    <div class="p-3 border border-white border-opacity-10 rounded-4 bg-white bg-opacity-10 shadow-sm" style="backdrop-filter: blur(4px);">
-                        <span class="d-block fw-bold text-success mb-1">🌐 Free Stable Wi-Fi</span>
-                        <p class="text-white-50 small mb-0" style="font-size: 11px; line-height: 1.5;">Akses internet tanpa hambatan di area publik penginapan.</p>
-                    </div>
-                </div>
-            </div>
+
                 <a href="{{ route('villa') }}" class="btn btn-success fw-bold px-4 rounded-pill shadow-sm">
-                    Discover The Resort
+                    Telusuri Area Resort Selengkapnya
                 </a>
             </div>
         </div>
     </div>
 </section>
 
+<!-- SECTION JELAJAH (DISCOVER CAROUSEL) -->
 <section id="discover" class="section-padding bg-light py-5 border-bottom">
     <div class="container">
         <div class="text-center mb-5">
-            <!-- Peningkatan Sub-header & Copywriting Headline -->
             <p class="text-uppercase fw-bold text-success mb-2 small" style="letter-spacing: 1px;">
-                🗺️ Unveiling the Unseen
+                🗺️ Menyingkap Keindahan Bukit Lawang
             </p>
-            <h2 class="display-5 fw-bold text-dark tracking-tight" style="letter-spacing: -1px;">Beyond the Well-Trodden Paths</h2>
-            <p class="lead text-muted small">Eksplorasi lebih jauh potongan surga tersembunyi dan pesona eksotis yang belum terjamah di sekitar Bukit Lawang.</p>
+            <h2 class="display-5 fw-bold text-dark tracking-tight" style="letter-spacing: -1px;">Jelajahi Sudut Surga Tersembunyi</h2>
+            <p class="lead text-muted small mx-auto" style="max-width: 750px;">Yuk jelajahi sudut-sudut surga tersembunyi yang masih asri, mulai dari tenangnya aliran sungai berbatu hingga magisnya suasana gua alami di sekitar Bukit Lawang.</p>
         </div>
 
         <div id="discoverCarousel" class="carousel slide shadow rounded-4 overflow-hidden" data-bs-ride="carousel">
-
+            <!-- CAROUSEL INDICATORS -->
             <div class="carousel-indicators">
                 @forelse($discover_galleries as $index => $gallery)
-                    <button type="button"
-                            data-bs-target="#discoverCarousel"
-                            data-bs-slide-to="{{ $index }}"
-                            class="{{ $index === 0 ? 'active' : '' }}"
-                            aria-current="{{ $index === 0 ? 'true' : 'false' }}"
-                            aria-label="Slide {{ $index + 1 }}">
+                    <button type="button" data-bs-target="#discoverCarousel" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}">
                     </button>
                 @empty
                     <button type="button" data-bs-target="#discoverCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -287,94 +356,107 @@ if()
                 @endforelse
             </div>
 
+            <!-- CAROUSEL CONTENT -->
             <div class="carousel-inner">
                 @forelse($discover_galleries as $index => $gallery)
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                        <img src="{{ asset('storage/' . $gallery->file_path) }}"
-                             class="d-block w-100"
-                             style="height:500px; object-fit:cover;"
-                             alt="{{ $gallery->caption ?? 'Discover Bukit Lawang' }}">
-
+                        <img src="{{ asset('storage/' . $gallery->file_path) }}" class="d-block w-100" style="height:500px; object-fit:cover;" alt="{{ $gallery->caption ?? 'Jelajahi Destinasi Bukit Lawang' }}">
                         @if($gallery->caption)
                             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded px-3 py-2">
                                 <h3 class="text-white fs-4 mb-1">{{ $gallery->caption }}</h3>
-                                <p class="text-white-50 small mb-0">Dokumentasi keindahan destinasi alam bebas Bukit Lawang.</p>
+                                <p class="text-white-50 small mb-0">Dokumentasi destinasi alternatif terbaik di kawasan Bukit Lawang.</p>
                             </div>
                         @endif
                     </div>
                 @empty
+                    {{-- DATA DEFAULT 1: LANDAK RIVER --}}
                     <div class="carousel-item active">
-                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200" class="d-block w-100" style="height:500px; object-fit:cover;" alt="River Adventure">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200" class="d-block w-100" style="height:500px; object-fit:cover;" alt="Landak River Adventure">
                         <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded px-3 py-2">
-                            <h3 class="text-white fs-4">River Adventure</h3>
-                            <p class="text-white-50 small mb-0">Enjoy the beauty of Bahorok River surrounded by tropical rainforest.</p>
+                            <h3 class="text-white fs-4 mb-1">Jernihnya Aliran Landak River</h3>
+                            <p class="text-white-50 small mb-0">Temukan kedamaian di tepi sungai berbatu yang tenang, jauh dari hiruk-pikuk perkotaan.</p>
                         </div>
                     </div>
+                    {{-- DATA DEFAULT 2: GUA KELELAWAR --}}
                     <div class="carousel-item">
-                        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1200" class="d-block w-100" style="height:500px; object-fit:cover;" alt="Tropical Jungle">
+                        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1200" class="d-block w-100" style="height:500px; object-fit:cover;" alt="Gua Kelelawar Bukit Lawang">
                         <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded px-3 py-2">
-                            <h3 class="text-white fs-4">Gunung Leuser Wilderness</h3>
-                            <p class="text-white-50 small mb-0">Immerse yourself deep into one of the oldest rainforests in the world.</p>
+                            <h3 class="text-white fs-4 mb-1">Misteri Ornamen Gua Kelelawar</h3>
+                            <p class="text-white-50 small mb-0">Petualangan seru menyusuri indahnya stalaktit alami di dalam ruang bawah tanah purba.</p>
                         </div>
                     </div>
                 @endforelse
             </div>
 
+            <!-- CAROUSEL CONTROLS -->
             <button class="carousel-control-prev" type="button" data-bs-target="#discoverCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden">Sebelumnya</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#discoverCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="visually-hidden">Selanjutnya</span>
             </button>
         </div>
     </div>
 </section>
 
-<!-- CONTACT INFORMATION SECTION (Improvised with Icons & Modern Spacing) -->
-<section class="section-padding bg-white py-5">
-    <div class="container text-center py-2">
-        <!-- Sub-header tipis khas platform profesional -->
-        <p class="text-uppercase fw-bold text-success mb-2 small" style="letter-spacing: 1px;">
-            📞 Get In Touch
-        </p>
-        <h2 class="fw-bold mb-4 text-dark tracking-tight" style="letter-spacing: -0.5px;">Contact Information</h2>
-        
-        <div class="d-flex flex-column gap-2 text-muted fs-6">
-            <p class="mb-1">
-                📍 Bukit Lawang, Langkat, North Sumatra, Indonesia
-            </p>
-            <p class="mb-1">
-                ✉️ Email: <a href="mailto:info@bukitlawang.com" class="text-success text-decoration-none fw-semibold">info@bukitlawang.com</a>
-            </p>
-            <p class="mb-0">
-                📞 Phone: <a href="tel:+6281234567890" class="text-success text-decoration-none fw-semibold">+62 812-3456-7890</a>
-            </p>
+<!-- SECTION KONTAK -->
+<section class="section-padding bg-white py-5 border-top">
+    <div class="container text-center py-3">
+        <p class="text-uppercase fw-bold text-success mb-2 small" style="letter-spacing: 1.5px;">📞 Hubungi Kami</p>
+        <h2 class="fw-bold mb-4 text-dark tracking-tight" style="letter-spacing: -0.5px;">Informasi Kontak & Layanan</h2>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8 text-muted">
+                <div class="d-flex flex-column gap-3 justify-content-center align-items-center fs-6">
+                    <p class="mb-0">
+                        <i class="bi bi-geo-alt-fill text-success me-2"></i> <strong>Lokasi:</strong> Kecamatan Bahorok, Kabupaten Langkat, Sumatera Utara, Indonesia
+                    </p>
+                    <p class="mb-0">
+                        <i class="bi bi-envelope-fill text-success me-2"></i> <strong>Email:</strong> <a href="mailto:support@etalauser-resort.com" class="text-success text-decoration-none fw-semibold border-bottom border-success border-opacity-25 pb-1">support@etalauser-resort.com</a>
+                    </p>
+                    <p class="mb-0">
+                        <i class="bi bi-whatsapp text-success me-2"></i> <strong>Layanan Informasi:</strong> <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="text-success text-decoration-none fw-semibold border-bottom border-success border-opacity-25 pb-1">+62 812-xxxx-xxxx</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- FOOTER SECTION (Improvised with Dynamic PHP Copyright Year) -->
-<footer class="bg-dark text-white-50 py-4 border-top border-secondary border-opacity-25">
+<!-- SECTION FOOTER -->
+<footer class="bg-dark text-white-50 py-5 border-top border-secondary border-opacity-25">
     <div class="container text-center">
-        <h5 class="text-white fw-bold mb-2">Smart Tourism Bukit Lawang</h5>
-        <p class="mb-2 small tracking-wide">Explore Nature • Adventure • Eco Tourism</p>
-        <hr class="mx-auto my-3 opacity-10" style="max-width: 150px;">
-        <!-- Penambahan Dynamic Year: Menampilkan tahun saat ini secara otomatis -->
-        <p class="mb-0 text-muted" style="font-size: 11px;">
-            &copy; {{ date('Y') }} Smart Tourism Hub. All Rights Reserved.
+        <!-- Brand & Slogan -->
+        <h5 class="text-white fw-bold mb-2">Smart Tourism Hub Bukit Lawang</h5>
+        <p class="mb-4 small text-white-50 tracking-wide">Eksplorasi Hutan Hujan Purba • Konservasi Satwa • Petualangan Ekowisata</p>
+
+        <!-- Penambahan Quick Links Demi Standardisasi UI/UX (Heuristic Evaluation) -->
+        <div class="d-flex justify-content-center flex-wrap gap-4 mb-4" style="font-size: 13px;">
+            <a href="#about" class="text-white-50 text-decoration-none hover-white">Tentang</a>
+            <a href="#experience" class="text-white-50 text-decoration-none hover-white">Pengalaman</a>
+            <a href="#journey" class="text-white-50 text-decoration-none hover-white">Paket Itinerary</a>
+            <a href="#villa" class="text-white-50 text-decoration-none hover-white">Resort &amp; Villa</a>
+            <a href="#discover" class="text-white-50 text-decoration-none hover-white">Galeri</a>
+        </div>
+
+        <hr class="mx-auto my-4 opacity-10" style="max-width: 250px;">
+
+        <!-- Informasi Hak Cipta Dinamis Berbasis Waktu Server Laravel -->
+        <p class="mb-0 text-muted" style="font-size: 11px; letter-spacing: 0.5px;">
+            &copy; {{ date('Y') }} Smart Tourism Hub. Hak Cipta Dilindungi Undang-Undang.
         </p>
     </div>
 </footer>
 
 <style>
-    .travel-card {
-        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+    /* Transisi Halus pada Link Footer */
+    .hover-white {
+        transition: color 0.2s ease-in-out;
     }
-    .travel-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 1rem 2rem rgba(0,0,0,.08) !important;
+    .hover-white:hover {
+        color: #ffffff !important;
     }
 </style>
 @endsection

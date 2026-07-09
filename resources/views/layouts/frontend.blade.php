@@ -4,16 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Tourism Bukit Lawang</title>
+    <title>Smart Tourism Hub - Bukit Lawang</title>
 
-    <!-- Google Font -->
+    <!-- Google Font (Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS (Stabil v5.3.3) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Bootstrap Icons (Wajib Ada untuk Ikon di Landing Page & Modal) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Global Layout Styling -->
     <style>
         :root {
             --primary-color: #198754;
@@ -36,87 +40,55 @@
             font-family: 'Poppins', sans-serif;
             color: var(--dark-color);
             overflow-x: hidden;
+            background-color: #ffffff;
         }
 
-        /* =========================
-           Navbar
-        ========================= */
+        /* ==========================================================================
+           Komponen Global Aplikasi
+           ========================================================================== */
 
+        /* Navigasi */
         .navbar {
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+            transition: all 0.3s ease-in-out;
             padding: 15px 0;
         }
 
         .navbar-brand {
-            font-weight: 700;
             font-size: 1.3rem;
+            letter-spacing: -0.5px;
         }
 
         .nav-link {
-            color: white !important;
             font-weight: 500;
             margin-left: 10px;
-            transition: .3s;
+            transition: all 0.2s ease-in-out;
         }
 
-        .nav-link:hover {
-            color: #d4edda !important;
-        }
-
-        /* =========================
-           Hero
-        ========================= */
-
+        /* Hero Header */
+        /* Hero Header */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
+            /* TAMBAHKAN PADDING TOP UNTUK MENGANTISIPASI TINGGI NAVBAR */
+            padding-top: 80px;
 
-            background:
-                linear-gradient(
-                    rgba(0, 0, 0, .45),
-                    rgba(0, 0, 0, .45)
-                ),
-                url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
-
+            background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .55)),
+                        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1920') no-repeat center center;
             background-size: cover;
-            background-position: center;
             color: white;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            max-width: 650px;
-            font-size: 1.15rem;
-        }
-
-        /* =========================
-           Section
-        ========================= */
-
+        /* Tata Letak Konten */
         .section-padding {
-            padding: 120px 0;
+            padding: 90px 0;
         }
 
-        .section-title {
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        /* =========================
-           Buttons
-        ========================= */
-
+        /* Tombol & Aksi */
         .btn-success {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
+            transition: all 0.2s ease-in-out;
         }
 
         .btn-success:hover {
@@ -124,137 +96,112 @@
             border-color: var(--dark-green);
         }
 
-        /* =========================
-           Cards
-        ========================= */
+        /* Floating Action Button (Tombol Kirim Pesan) */
+        .fab-inquiry {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            z-index: 9999;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
+        .fab-inquiry:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Kartu Wisata */
         .card {
             border: none;
-            overflow: hidden;
-            transition: .35s ease;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .card img {
-            transition: .35s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card:hover img {
-            transform: scale(1.05);
-        }
-
-        /* =========================
-           Images
-        ========================= */
-
-        .img-fluid {
-            border-radius: 12px;
-        }
-
-        /* =========================
-           Footer
-        ========================= */
-
-        footer {
-            background: #111;
-        }
-
-        /* =========================
-           Responsive
-        ========================= */
-
+        /* Media Queries (Responsive Grid Breakpoints) */
         @media (max-width: 992px) {
-
-            .hero {
-                text-align: center;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                margin: auto;
-            }
+            .hero { text-align: center; }
+            .hero h1 { font-size: 3rem; }
+            .hero p { margin: auto; }
         }
 
         @media (max-width: 768px) {
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-padding {
-                padding: 80px 0;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .section-padding { padding: 60px 0; }
+            .fab-inquiry { bottom: 20px; right: 20px; width: 50px; height: 50px; }
         }
     </style>
-
-    <button type="button" class="btn btn-success rounded-circle shadow-lg d-flex align-items-center justify-content-center"
-        data-bs-toggle="modal" data-bs-target="#inquiryModal"
-        style="position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; z-index: 9999; transition: transform 0.2s;">
-    <span class="fs-3">📩</span>
-</button>
-
-<div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true" style="z-index: 10000;">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title fw-bold" id="inquiryModalLabel">🌿 Kirim Pesan / Pertanyaan</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('inquiries.store') }}" method="POST">
-                @csrf
-                <div class="modal-body p-4">
-                    <p class="small text-muted mb-3">Punya pertanyaan seputar akomodasi atau paket wisata? Tinggalkan pesan Anda di bawah ini, tim kami akan segera merespons.</p>
-
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Nama Lengkap</label>
-                        <input type="text" name="name" class="form-control form-control-sm" placeholder="Contoh: Budi Santoso" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Alamat E-mail *(Opsional)</label>
-                        <input type="email" name="email" class="form-control form-control-sm" placeholder="Contoh: budi@gmail.com">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Nomor WhatsApp *(Opsional)</label>
-                        <input type="text" name="phone" class="form-control form-control-sm" placeholder="Contoh: 0812345678xx">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Isi Pesan / Pertanyaan</label>
-                        <textarea name="message" rows="4" class="form-control form-control-sm" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer bg-light p-3">
-                    <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success btn-sm fw-bold px-4">Kirim Pesan 🚀</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<style>
-    button[data-bs-target="#inquiryModal"]:hover {
-        transform: scale(1.1);
-        background-color: #198754 !important;
-    }
-</style>
-
 </head>
 
 <body>
 
+    <!-- SUNTIKAN KONTEN HALAMAN UTAMA -->
     @yield('content')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- COMPONENT: FLOATING ACTION BUTTON (FAB) INQUIRY -->
+    <button type="button" class="btn btn-success rounded-circle shadow-lg d-flex align-items-center justify-content-center fab-inquiry"
+            data-bs-toggle="modal" data-bs-target="#inquiryModal" title="Kirim Pertanyaan">
+        <i class="bi bi-envelope-paper-fill fs-4 text-white"></i>
+    </button>
 
+    <!-- COMPONENT: MODAL FORM INQUIRY -->
+    <div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true" style="z-index: 10000;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-3">
+                <div class="modal-header bg-success text-white py-3">
+                    <h5 class="modal-title fw-bold fs-6 d-flex align-items-center" id="inquiryModalLabel">
+                        <i class="bi bi-leaf me-2"></i> Kirim Pesan / Pertanyaan Wisata
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="{{ route('inquiries.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body p-4">
+                        <p class="small text-muted mb-4" style="line-height: 1.5; text-align: justify;">
+                            Punya kendala atau pertanyaan seputar akomodasi resort dan paket perjalanan di Bukit Lawang? Tinggalkan pesan Anda di bawah ini, tim operasional kami akan segera memberikan respons.
+                        </p>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">Nama Lengkap <span class="text-danger">*</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-light text-muted"><i class="bi bi-person"></i></span>
+                                <input type="text" name="name" class="form-control" placeholder="Contoh: Budi Santoso" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">Alamat E-mail <span class="text-muted text-opacity-50">(Opsional)</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-light text-muted"><i class="bi bi-envelope"></i></span>
+                                <input type="email" name="email" class="form-control" placeholder="Contoh: budi@gmail.com">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark">Nomor WhatsApp <span class="text-muted text-opacity-50">(Opsional)</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-light text-muted"><i class="bi bi-whatsapp"></i></span>
+                                <input type="text" name="phone" class="form-control" placeholder="Contoh: 081234567xxx">
+                            </div>
+                        </div>
+
+                        <div class="mb-0">
+                            <label class="form-label small fw-bold text-dark">Isi Pesan / Pertanyaan <span class="text-danger">*</span></label>
+                            <textarea name="message" rows="4" class="form-control form-control-sm" placeholder="Tuliskan detail pertanyaan atau rencana perjalanan Anda di sini..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer bg-light border-top p-3">
+                        <button type="button" class="btn btn-secondary btn-sm px-3 rounded-pill" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success btn-sm fw-bold px-4 rounded-pill shadow-sm">Kirim Pesan 🚀</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Core JS JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
