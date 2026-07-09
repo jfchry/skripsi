@@ -278,7 +278,7 @@
         <div class="row align-items-center g-5">
             <!-- KOLOM KIRI: VISUAL UTAMA VILLA -->
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200" class="img-fluid rounded-4 shadow-lg" alt="Tampak depan Villa Etalauser Resort front view">
+                <img src="https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/451840137.jpg?k=aab6ab8f1a5f8f0cb19a4a64798cc0953da4b2f137b157ccfd441e0024f9f910&o=&s=1024x" class="img-fluid rounded-4 shadow-lg" alt="Tampak depan Villa Etalauser Resort front view">
             </div>
 
             <!-- KOLOM KANAN: HIGHLIGHT 4 FASILITAS UNGGULAN -->

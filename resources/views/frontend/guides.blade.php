@@ -2,25 +2,27 @@
 
 @section('content')
 <!-- 1. HERO SECTION (Layout Dua Kolom Megah & Asimetris) -->
-<section class="text-white border-bottom" style="padding-top: 5.5rem !important; padding-bottom: 3rem !important; background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1200') no-repeat center center !important; background-size: cover !important;">
+<section class="text-white border-bottom" style="padding-top: 80px !important; padding-bottom: 3rem !important; background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1200') no-repeat center center !important; background-size: cover !important;">
     <div class="container py-4">
         <div class="row align-items-center">
+
+            <!-- Kolom Kiri: Informasi Utama Halaman -->
             <div class="col-lg-7">
                 <nav aria-label="breadcrumb" class="mb-3">
                     <ol class="breadcrumb small mb-0 bg-transparent p-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" class="text-white text-decoration-none fw-bold">🏠 Home</a>
+                            <a href="{{ url('/') }}" class="text-white text-decoration-none fw-bold">🏠 Beranda</a>
                         </li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Travel Guide</li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">Panduan Perjalanan</li>
                     </ol>
                 </nav>
 
                 <p class="text-uppercase fw-bold text-success mb-2 tracking-wider small">
-                    Smart Tourism Platform • Information Hub
+                    Platform Pariwisata Pintar • Pusat Informasi Wisata
                 </p>
 
                 <h1 class="display-3 fw-bold text-white tracking-tight">
-                    Travel Information Center
+                    Pusat Informasi &amp; Panduan
                 </h1>
 
                 <p class="lead text-white-75 mt-3 fs-5" style="max-width: 650px;">
@@ -28,11 +30,11 @@
                 </p>
 
                 <div class="d-flex flex-wrap gap-2 mt-4">
-                    <a href="#essential-guides" class="btn btn-success btn-lg fw-bold px-4 shadow-sm">
+                    <a href="#essential-guides" class="btn btn-success btn-lg fw-bold px-4 shadow-sm fs-6 rounded-pill">
                         📖 Baca Panduan Saku
                     </a>
                     <a href="https://wa.me/6281234567890?text=Halo%20Villa%20Etalauser,%20saya%20butuh%20informasi%20tambahan%20mengenai%20akses%20ke%20Bukit%20Lawang."
-                       target="_blank" class="btn btn-outline-dark btn-lg fw-bold px-4">
+                       target="_blank" rel="noopener noreferrer" class="btn btn-outline-light btn-lg fw-bold px-4 fs-6 rounded-pill">
                         💬 Konsultasi Perjalanan
                     </a>
                 </div>
@@ -40,17 +42,17 @@
 
             <!-- Kolom Kanan: Quick Tips Card -->
             <div class="col-lg-5 d-none d-lg-block">
-                <div class="p-4 bg-success bg-opacity-10 rounded-4 border border-success border-opacity-10 shadow-sm">
+                <div class="p-4 bg-success bg-opacity-10 rounded-4 border border-success border-opacity-10 shadow-sm" style="backdrop-filter: blur(4px);">
                     <h5 class="fw-bold text-success mb-2">💡 Tips Cepat Wisatawan</h5>
-                    <p class="small text-white mb-3">Bukit Lawang adalah kawasan pedesaan di tepi hutan hujan tropis. Perhatikan dua aspek krusial logistik lapangan berikut:</p>
+                    <p class="small text-white mb-3 text-opacity-75">Bukit Lawang adalah kawasan pedesaan di tepi hutan hujan tropis. Perhatikan dua aspek krusial logistik lapangan berikut:</p>
                     <div class="d-flex flex-column gap-2 small">
                         <div class="d-flex align-items-start gap-2 text-white">
-                            <span>💵</span>
-                            <div><strong>Uang Tunai:</strong> Tidak ada ATM bersama di dalam area desa wisata, siapkan cash secukupnya.</div>
+                            <span class="mt-0.5">💵</span>
+                            <div><strong>Uang Tunai:</strong> Tidak ada fasilitas mesin ATM bersama di area desa wisata, pastikan menyiapkan uang tunai secukupnya.</div>
                         </div>
                         <div class="d-flex align-items-start gap-2 text-white">
-                            <span>📶</span>
-                            <div><strong>Koneksi:</strong> Sinyal operator Telkomsel adalah yang paling stabil dan memiliki cakupan 4G terluas di sini.</div>
+                            <span class="mt-0.5">📶</span>
+                            <div><strong>Koneksi Jaringan:</strong> Sinyal operator Telkomsel adalah yang paling stabil dan memiliki cakupan 4G terluas di kawasan ini.</div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +64,6 @@
 <!-- 2. MAIN HUB SECTION -->
 <section id="essential-guides" class="py-5 bg-white">
     <div class="container">
-
         <div class="row g-4">
 
             <!-- DATA DINAMIS + INTEGRASI FLOATING MODAL DETAIL -->
@@ -81,12 +82,12 @@
                         <div class="card-body p-4 d-flex flex-column justify-content-between">
                             <div>
                                 <h4 class="fw-bold text-dark mb-2" style="font-size: 1.25rem;">{{ $guide->title }}</h4>
-                                <!-- 🌟 PEMOTONGAN KUTIPAN OTOMATIS DARI KOLOM BODY -->
-                                <p class="text-muted small">
+                                <!-- PEMOTONGAN KUTIPAN TEKS SECARA AMAN -->
+                                <p class="text-muted small mb-0" style="text-align: justify; line-height: 1.6;">
                                     {{ Str::limit(strip_tags($guide->body), 110) }}
                                 </p>
                             </div>
-                            <div class="mt-3 pt-3 border-top d-flex justify-content-between align-items-center">
+                            <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
                                 <span class="text-muted small">
                                     <i class="bi bi-clock"></i> {{ \Carbon\Carbon::parse($guide->created_at)->format('d M Y') }}
                                 </span>
@@ -109,9 +110,9 @@
                         <div class="modal-content border-0 shadow-lg rounded-4">
 
                             <!-- Header Modal -->
-                            <div class="modal-header bg-success text-white p-3.5">
+                            <div class="modal-header bg-success text-white p-3">
                                 <div class="d-flex align-items-center gap-2">
-                                    <span class="fs-4">📋</span>
+                                    <span class="fs-5">📋</span>
                                     <h5 class="modal-title fw-bold mb-0" id="guideModalLabel{{ $guide->id }}">
                                         Detail Informasi Wisata
                                     </h5>
@@ -119,7 +120,7 @@
                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
-                            <!-- Isi Modal (Mendukung Teks Panjang dari kolom body) -->
+                            <!-- Isi Modal -->
                             <div class="modal-body p-4 text-start">
                                 @if($guide->image_url)
                                     <div class="mb-4 text-center rounded-3 overflow-hidden shadow-sm" style="max-height: 320px;">
@@ -132,8 +133,7 @@
                                     📅 Dipublikasikan pada: {{ \Carbon\Carbon::parse($guide->created_at)->format('d F Y') }}
                                 </p>
 
-                                <!-- 🌟 FIX: Kolom pemanggilan diubah menjadi body sesuai struktur database asli -->
-                                <div class="text-dark leading-relaxed font-normal" style="white-space: pre-line; font-size: 0.95rem;">
+                                <div class="text-dark leading-relaxed font-normal" style="white-space: pre-line; font-size: 0.95rem; text-align: justify; line-height: 1.8;">
                                     {{ $guide->body }}
                                 </div>
                             </div>
@@ -151,41 +151,41 @@
             @empty
                 <!-- 3. FALLBACK ESSENTIAL POCKET GUIDES (Otomatis Muncul Jika DB Kosong) -->
                 <div class="col-lg-6">
-                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden bg-light p-2">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden bg-light border border-light">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center gap-3 mb-3">
-                                <span class="fs-2">🚐</span>
-                                <h4 class="fw-bold text-dark mb-0">Transportasi & Waktu Tempuh</h4>
+                                <span class="fs-2">Blay</span>
+                                <h4 class="fw-bold text-dark mb-0">Transportasi &amp; Waktu Tempuh</h4>
                             </div>
-                            <h6 class="fw-bold text-dark mt-3">Berapa lama perjalanan dari Medan?</h6>
-                            <p class="text-muted small">Dari Bandara Kualanamu atau Kota Medan memakan waktu sekitar <strong>3.5 hingga 4 jam berkendara</strong> melewati Binjai dan Kuala.</p>
+                            <h6 class="fw-bold text-dark mt-4 mb-1">Berapa lama perjalanan dari Medan?</h6>
+                            <p class="text-muted small text-justify mb-3" style="line-height: 1.6;">Dari Bandar Udara Internasional Kualanamu atau pusat Kota Medan memakan waktu sekitar <strong>3,5 hingga 4 jam berkendara</strong> darat melewati rute Binjai dan Kuala.</p>
 
-                            <h6 class="fw-bold text-dark mt-3">Bagaimana cara terbaik menuju Bukit Lawang?</h6>
-                            <ul class="text-muted small ps-3 mb-0">
-                                <li class="mb-1"><strong>Private Shuttle (Direkomendasikan):</strong> Penjemputan langsung dari Bandara Kualanamu oleh tim Villa Etalauser demi kenyamanan maksimal.</li>
-                                <li class="mb-1"><strong>Bus Umum:</strong> Naik Bus Damri ke Terminal Pinang Baris Medan, dilanjutkan Bus ALS kecil jurusan Bukit Lawang.</li>
+                            <h6 class="fw-bold text-dark mt-3 mb-1">Bagaimana cara terbaik menuju lokasi?</h6>
+                            <ul class="text-muted small ps-3 mb-0" style="line-height: 1.7;">
+                                <li class="mb-2"><strong>Kendaraan Antar-Jemput Privat (Direkomendasikan):</strong> Fasilitas layanan penjemputan langsung dari bandara oleh armada mitra resort demi kenyamanan maksimal.</li>
+                                <li class="mb-0"><strong>Angkutan Umum:</strong> Menggunakan armada Bus Damri menuju Terminal Pinang Baris Medan, dilanjutkan dengan menaiki Bus angkutan lokal jurusan Bukit Lawang.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden bg-light p-2">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden bg-light border border-light">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <span class="fs-2">☀️</span>
                                 <h4 class="fw-bold text-dark mb-0">Kesiapan Sebelum Berangkat</h4>
                             </div>
-                            <h6 class="fw-bold text-dark mt-3">Kapan waktu terbaik berkunjung?</h6>
-                            <p class="text-muted small">Musim kemarau antara <strong>Mei hingga September</strong> adalah waktu paling ideal agar jalur trekking tidak licin dan satwa liar (Orangutan) lebih mudah terlihat jelas.</p>
+                            <h6 class="fw-bold text-dark mt-4 mb-1">Kapan waktu terbaik untuk berkunjung?</h6>
+                            <p class="text-muted small text-justify mb-4" style="line-height: 1.6;">Periode musim kemarau antara bulan <strong>Mei hingga September</strong> adalah waktu paling ideal agar jalur penjelajahan hutan tidak licin serta meningkatkan probabilitas perjumpaan dengan Orangutan.</p>
 
-                            <h6 class="fw-bold text-dark mt-3">Apa saja yang wajib dibawa?</h6>
-                            <div class="d-flex flex-wrap gap-1 mt-2">
-                                <span class="badge bg-white text-dark border small">👟 Sepatu Gunung / Trekking</span>
-                                <span class="badge bg-white text-dark border small">🦟 Lotion Anti Nyamuk</span>
-                                <span class="badge bg-white text-dark border small">🧥 Jas Hujan Ringan</span>
-                                <span class="badge bg-white text-dark border small">🔌 Powerbank</span>
-                                <span class="badge bg-white text-dark border small">💵 Uang Tunai Secukupnya</span>
+                            <h6 class="fw-bold text-dark mt-3 mb-2">Perlengkapan yang Wajib Dibawa:</h6>
+                            <div class="d-flex flex-wrap gap-1.5 mt-2">
+                                <span class="badge bg-white text-dark border p-2 small font-normal rounded-3">👟 Sepatu Gunung / Trekking</span>
+                                <span class="badge bg-white text-dark border p-2 small font-normal rounded-3">🦟 Losion Anti Nyamuk</span>
+                                <span class="badge bg-white text-dark border p-2 small font-normal rounded-3">🧥 Jas Hujan Ringan</span>
+                                <span class="badge bg-white text-dark border p-2 small font-normal rounded-3">🔋 Pengisi Daya Portabel (Powerbank)</span>
+                                <span class="badge bg-white text-dark border p-2 small font-normal rounded-3">💵 Uang Tunai Fisik Secukupnya</span>
                             </div>
                         </div>
                     </div>
@@ -200,13 +200,15 @@
 <section class="py-5 bg-white border-top">
     <div class="container text-center">
         <h4 class="fw-bold text-dark mb-2">Masih memiliki pertanyaan khusus lainnya?</h4>
-        <p class="text-muted small mb-4 mx-auto" style="max-width: 550px;">Jangan ragu untuk mengklik tombol pesan melayang di pojok kanan bawah atau langsung berkonsultasi gratis dengan tim pelayanan wisata kami.</p>
-        <a href="https://wa.me/6281234567890?text=Halo%20Villa%20Etalauser,%20saya%20ingin%20bertanya%20mengenai%20panduan%20perjalanan%20ke%20Bukit%20Lawang." target="_blank" class="btn btn-success fw-bold px-4 rounded-pill shadow-sm">
-            💬 Tanyakan Lewat WhatsApp Official
+        <p class="text-muted small mb-4 mx-auto" style="max-width: 550px;">Jangan ragu untuk mengklik tombol pesan melayang di pojok kanan bawah atau langsung berkonsultasi secara gratis dengan tim pelayanan pariwisata kami.</p>
+        <a href="https://wa.me/6281234567890?text=Halo%20Villa%20Etalauser,%20saya%20ingin%20bertanya%20mengenai%20panduan%20perjalanan%20ke%20Bukit%20Lawang."
+           target="_blank" rel="noopener noreferrer" class="btn btn-success fw-bold px-4 rounded-pill shadow-sm py-2">
+            💬 Tanyakan Lewat WhatsApp Resmi
         </a>
     </div>
 </section>
 
+<!-- Custom Interactive CSS Animation -->
 <style>
     .travel-card {
         transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
